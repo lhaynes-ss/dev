@@ -17,12 +17,21 @@ USE SCHEMA PUBLIC;
 
 -- set variables 
 -- change country, app name, vao
-SET reporting_country           = 'US';
-SET app_name                    = 'Hulu';
-SET reporting_vao               = 136761;
-SET reporting_vao2              = NULL;
-SET attribution_window_unit     = 'DAY';
-SET attribution_window_liveramp = 0;
+SET (
+    reporting_country, 
+    app_name,
+    reporting_vao,
+    reporting_vao2,
+    attribution_window_unit,
+    attribution_window_liveramp
+) = (
+    'US',   -- reporting_country
+    'Hulu', -- app_name
+    136761, -- reporting_vao
+    NULL,   -- reporting_vao2 
+    'DAY',  -- attribution_window_unit 
+    0       -- attribution_window_liveramp 
+);
 
 
 
@@ -854,4 +863,3 @@ FROM cte_liveramp_registered
     JOIN cte_superset USING (country)
 ORDER BY timing_date
 ;
-

@@ -28,7 +28,7 @@ SET (
     'US',   -- reporting_country
     'Hulu', -- app_name
     136761, -- reporting_vao
-    NULL,   -- reporting_vao2 
+    NULL,   -- reporting_vao2 !! If NOT NULL, enable "reporting_vao2" in campaign_meta temp table/vao_samsungCampaignID CTE
     'DAY',  -- attribution_window_unit 
     0       -- attribution_window_liveramp 
 );

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue JS</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        pre {
+          background-color: #eee;
+          border-radius: 10px;
+          margin-bottom: 30px;
+          padding: 20px;
+        }
+
+        pre span {
+          color: red;
+        }
+
+        div {
+          padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+      <h1>Audience Advisor Prep</h1>
+      <h2>Config</h2>
+      <div><input type="text" v-model="source_file_1" placeholder="source_file_1" />      <span>(e.g., s3://samsung-dm-data-share-analytics/export/20240110/psid/123456.csv)</span></div>
+      <div><input type="text" v-model="source_file_2" placeholder="source_file_2" />      <span>(e.g., s3://samsung-dm-data-share-analytics/export/20240110/psid/123456.csv)</span></div>
+      <div><input type="text" v-model="source_file_3" placeholder="source_file_3" />      <span>(e.g., s3://samsung-dm-data-share-analytics/export/20240110/psid/123456.csv)</span></div>
+      <div><input type="text" v-model="user_name" placeholder="user_name" />          <span>(e.g., vaughn) the name of your dir in "/analytics/custom/"</span></div>
+      <div><input type="text" v-model="audience_1_id" placeholder="audience_1_id" />      <span>(e.g., 1234)</span></div>
+      <div><input type="text" v-model="audience_2_id" placeholder="audience_2_id" />      <span>(e.g., 1234)</span></div>
+      <div><input type="text" v-model="audience_3_id" placeholder="audience_3_id" />      <span>(e.g., 1234)</span></div>
+      <div><input type="text" v-model="ticket_num" placeholder="ticket_num" />         <span>(e.g., SAI9876)</span></div>
+      <div><input type="text" v-model="date" placeholder="date" />               <span>(e.g., 20240131)</span></div>
+
+      <pre>
+        -----------------
+        List Directories
+        -----------------
+        aws --profile nyc s3 ls s3://samsung.ads.data.share/analytics/custom/<span>{{user_name}}</span>/
+       
+        ---------
+        Copy 
+        --------
+        aws --profile nyc s3 cp <span>{{source_file_1}}</span> s3://samsung.ads.data.share/analytics/custom/<span>{{user_name}}</span>/audiencetransfer/<span>{{ticket_num}}</span>/<span>{{date}}</span>/<span>{{audience_1_id}}</span>.csv 
+        aws --profile nyc s3 cp <span>{{source_file_2}}</span> s3://samsung.ads.data.share/analytics/custom/<span>{{user_name}}</span>/audiencetransfer/<span>{{ticket_num}}</span>/<span>{{date}}</span>/<span>{{audience_2_id}}</span>.csv 
+        aws --profile nyc s3 cp <span>{{source_file_3}}</span> s3://samsung.ads.data.share/analytics/custom/<span>{{user_name}}</span>/audiencetransfer/<span>{{ticket_num}}</span>/<span>{{date}}</span>/<span>{{audience_3_id}}</span>.csv 
+      </pre>
+
+      <pre>
+        -- import audience 1
+        DROP TABLE IF EXISTS capi_audience_<span>{{audience_1_id}}</span>;
+        CREATE TEMP TABLE capi_audience_<span>{{audience_1_id}}</span> (psid VARCHAR(100));
+        COPY INTO capi_audience_<span>{{audience_1_id}}</span> 
+        FROM @adbiz_data.SAMSUNG_ADS_DATA_SHARE/analytics/custom/<span>{{user_name}}</span>/<span>{{ticket_num}}</span>/<span>{{date}}</span>/<span>{{audience_1_id}}</span>.csv
+        file_format = (format_name = adbiz_data.analytics_csv);
+        
+        -- import audience 2
+        DROP TABLE IF EXISTS capi_audience_<span>{{audience_2_id}}</span>;
+        CREATE TEMP TABLE capi_audience_<span>{{audience_2_id}}</span> (psid VARCHAR(100));
+        COPY INTO capi_audience_<span>{{audience_2_id}}</span> 
+        FROM @adbiz_data.SAMSUNG_ADS_DATA_SHARE/analytics/custom/<span>{{user_name}}</span>/<span>{{ticket_num}}</span>/<span>{{date}}</span>/<span>{{audience_2_id}}</span>.csv
+        file_format = (format_name = adbiz_data.analytics_csv);
+        
+        -- import audience 3
+        DROP TABLE IF EXISTS capi_audience_<span>{{audience_3_id}}</span>;
+        CREATE TEMP TABLE capi_audience_<span>{{audience_3_id}}</span> (psid VARCHAR(100));
+        COPY INTO capi_audience_<span>{{audience_3_id}}</span> 
+        FROM @adbiz_data.SAMSUNG_ADS_DATA_SHARE/analytics/custom/<span>{{user_name}}</span>/<span>{{ticket_num}}</span>/<span>{{date}}</span>/<span>{{audience_3_id}}</span>.csv
+        file_format = (format_name = adbiz_data.analytics_csv);
+      </pre>
+
+      <pre>
+        -- =====================================
+        -- MERGE AUDIENCES (per ticket request)
+        -- =====================================
+        -- OPTION 1: MERGE psid's FROM 3 audiences - Using "OR" logic (UNION)
+        DROP TABLE IF EXISTS capi_audience_or;
+        CREATE temp TABLE capi_audience_or AS
+        SELECT DISTINCT psid
+        FROM (
+            SELECT * FROM capi_audience_<span>{{audience_1_id}}</span>
+            UNION 
+            SELECT * FROM capi_audience_<span>{{audience_2_id}}</span>
+            UNION 
+            SELECT * FROM capi_audience_<span>{{audience_3_id}}</span>
+        );
+      </pre>
+
+      <pre>
+        -- OPTION 2: MERGE psid's FROM 3 audiences - Using "AND" logic (JOIN)
+        DROP TABLE IF EXISTS capi_audience_and;
+        CREATE temp TABLE capi_audience_and AS
+        SELECT DISTINCT psid
+        FROM (
+            SELECT DISTINCT * 
+            FROM capi_audience_<span>{{audience_1_id}}</span>
+                INNER JOIN capi_audience_<span>{{audience_2_id}}</span> USING(psid)
+                INNER JOIN capi_audience_<span>{{audience_3_id}}</span> USING(psid)
+        );
+      </pre>
+
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue
+      
+        createApp({
+          setup() {
+
+            const source_file_1 = ref('');  
+            const source_file_2 = ref('');   
+            const source_file_3 = ref('');  
+            const user_name = ref('');  
+            const audience_1_id = ref('');  
+            const audience_2_id = ref('');   
+            const audience_3_id = ref('');   
+            const ticket_num = ref('');     
+            const date = ref('');
+
+            return {
+              source_file_1, 
+              source_file_2,  
+              source_file_3, 
+              user_name, 
+              audience_1_id, 
+              audience_2_id,  
+              audience_3_id,  
+              ticket_num,    
+              date
+            }
+          }
+        }).mount('#app')
+    </script>
+
+</body>
+</html>

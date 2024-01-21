@@ -362,7 +362,8 @@ CREATE TEMP TABLE app_usg AS (
         COUNT(*) AS app_opens,
         SUM(DATEDIFF('hours',start_timestamp,end_timestamp)) AS hour_spent
     FROM fact
-        JOIN samsung_ue USING (country, vtifa)
+        JOIN samsung_ue USING (vtifa)
+    WHERE fact.country = $country
     GROUP BY 1,2,3
 
 );
@@ -376,7 +377,7 @@ CREATE TEMP TABLE app_usg AS (
 DROP TABLE IF EXISTS liveramp_matched_audience;
     CREATE TEMP TABLE liveramp_matched_audience AS (
     SELECT DISTINCT
-        country,
+        $country AS country,
         vtifa
     FROM samsung_ue AS superset
         JOIN input_audience AS s3 USING (vtifa)
@@ -493,7 +494,7 @@ FROM (
     ) AS c USING (country)
     JOIN (
         SELECT
-            country,
+            $country AS country,
             COUNT(DISTINCT vtifa) AS total_uni_superset
         FROM samsung_ue
         GROUP BY 1
@@ -567,7 +568,7 @@ FROM (
     ) AS c USING (country)
     JOIN (
         SELECT
-            country,
+            $country AS country,
             COUNT(DISTINCT vtifa) AS total_uni_superset
         FROM samsung_ue
         GROUP BY 1
@@ -642,7 +643,7 @@ FROM (
     ) AS c USING (country)
     JOIN (
         SELECT
-            country,
+            $country AS country,
             COUNT(DISTINCT vtifa) AS total_uni_superset
         FROM samsung_ue
         GROUP BY 1
@@ -717,7 +718,7 @@ FROM (
     ) AS c USING (country)
     JOIN (
         SELECT
-            country,
+            $country AS country,
             COUNT(DISTINCT vtifa) AS total_uni_superset
         FROM samsung_ue
         GROUP BY 1
@@ -792,7 +793,7 @@ FROM (
     ) AS c USING (country)
     JOIN (
         SELECT
-            country,
+            $country AS country,
             COUNT(DISTINCT vtifa) AS total_uni_superset
         FROM samsung_ue
         GROUP BY 1
@@ -840,7 +841,7 @@ cte_expd_liveramp_registered AS (
 
 cte_superset AS (
     SELECT
-        country,
+        $country AS country,
         COUNT(DISTINCT vtifa) AS total_uni_superset
     FROM samsung_ue
     GROUP BY 1

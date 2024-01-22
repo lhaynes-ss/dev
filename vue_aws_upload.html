@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue JS</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+          margin: 10px 100px;
+        }
+
+        pre {
+          background-color: #eee;
+          border-radius: 10px;
+          margin-bottom: 30px;
+          padding: 20px;
+        }
+
+        pre span {
+          color: red;
+        }
+
+        div {
+          padding: 5px;
+        }
+
+        input {
+          color: red;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+      <h1>AWS to UDW</h1>
+      <h2>Config</h2>
+      <div><input type="text" v-model="user_name" placeholder="user_name" />          <span>(e.g., vaughn) the name of your dir in "/analytics/custom/"</span></div>
+      <div><input type="text" v-model="source_file_1" placeholder="source_file_1" />      <span>(e.g., s3://samsung-dm-data-share-analytics/export/20240110/psid/123456.csv)</span></div>
+      <div><input type="text" v-model="source_file_2" placeholder="source_file_2" />      <span>(e.g., s3://samsung-dm-data-share-analytics/export/20240110/psid/123456.csv)</span></div>
+      <div><input type="text" v-model="source_file_3" placeholder="source_file_3" />      <span>(e.g., s3://samsung-dm-data-share-analytics/export/20240110/psid/123456.csv)</span></div>
+      <div><input type="text" v-model="destination_path_1" placeholder="destination_path_1" />      <span>(e.g., audiencetransfer/SAI1234/20240115/12345.csv)</span></div>
+      <div><input type="text" v-model="destination_path_2" placeholder="destination_path_2" />      <span>(e.g., audiencetransfer/SAI1234/20240115/12345.csv)</span></div>
+      <div><input type="text" v-model="destination_path_3" placeholder="destination_path_3" />      <span>(e.g., audiencetransfer/SAI1234/20240115/12345.csv)</span></div>
+      <div><input type="text" v-model="table_columns" placeholder="table_columns" />      <span>(e.g., psid VARCHAR(100))</span></div>
+      <div><input type="text" v-model="temp_table_1_name" placeholder="temp_table_1_name" />      <span>(e.g., audience_1)</span></div>
+      <div><input type="text" v-model="temp_table_2_name" placeholder="temp_table_2_name" />      <span>(e.g., audience_2)</span></div>
+      <div><input type="text" v-model="temp_table_3_name" placeholder="temp_table_3_name" />      <span>(e.g., audience_3)</span></div>
+      
+ 
+
+      <h2>Copy to s3</h2>
+      <pre>
+        -----------------
+        List Directories
+        -----------------
+        aws --profile nyc s3 ls s3://samsung.ads.data.share/analytics/custom/<span>{{user_name}}</span>/
+       
+        ---------
+        Copy 
+        --------
+        aws --profile nyc s3 cp <span>{{source_file_1}}</span> s3://samsung.ads.data.share/analytics/custom/<span>{{user_name}}</span>/<span>{{destination_path_1}}</span>
+        aws --profile nyc s3 cp <span>{{source_file_2}}</span> s3://samsung.ads.data.share/analytics/custom/<span>{{user_name}}</span>/<span>{{destination_path_2}}</span> 
+        aws --profile nyc s3 cp <span>{{source_file_3}}</span> s3://samsung.ads.data.share/analytics/custom/<span>{{user_name}}</span>/<span>{{destination_path_3}}</span>
+      </pre>
+
+
+      <h2>Import to UDW</h2>
+      <pre>
+        -- import audience 1
+        DROP TABLE IF EXISTS <span>{{temp_table_1_name}}</span><span>{{audience_1_id}}</span>;
+        CREATE TEMP TABLE <span>{{temp_table_1_name}}</span><span>{{audience_1_id}}</span> (<span>{{table_columns}}</span>);
+        COPY INTO <span>{{temp_table_1_name}}</span><span>{{audience_1_id}}</span> 
+        FROM @adbiz_data.SAMSUNG_ADS_DATA_SHARE/analytics/custom/<span>{{user_name}}</span>/<span>{{destination_path_1}}</span>
+        file_format = (format_name = adbiz_data.analytics_csv);
+        
+        -- import audience 2
+        DROP TABLE IF EXISTS <span>{{temp_table_2_name}}</span><span>{{audience_2_id}}</span>;
+        CREATE TEMP TABLE <span>{{temp_table_2_name}}</span><span>{{audience_2_id}}</span> (<span>{{table_columns}}</span>);
+        COPY INTO <span>{{temp_table_2_name}}</span><span>{{audience_2_id}}</span> 
+        FROM @adbiz_data.SAMSUNG_ADS_DATA_SHARE/analytics/custom/<span>{{user_name}}</span>/<span>{{destination_path_2}}</span>
+        file_format = (format_name = adbiz_data.analytics_csv);
+        
+        -- import audience 3
+        DROP TABLE IF EXISTS <span>{{temp_table_3_name}}</span><span>{{audience_3_id}}</span>;
+        CREATE TEMP TABLE <span>{{temp_table_3_name}}</span><span>{{audience_3_id}}</span> (<span>{{table_columns}}</span>);
+        COPY INTO <span>{{temp_table_3_name}}</span><span>{{audience_3_id}}</span> 
+        FROM @adbiz_data.SAMSUNG_ADS_DATA_SHARE/analytics/custom/<span>{{user_name}}</span>/<span>{{destination_path_3}}</span>
+        file_format = (format_name = adbiz_data.analytics_csv);
+      </pre>
+
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue
+      
+        createApp({
+          setup() {
+
+            const source_file_1 = ref('');  
+            const source_file_2 = ref('');   
+            const source_file_3 = ref('');  
+            const user_name = ref('vaughn');  
+            const destination_path_1 = ref('');  
+            const destination_path_2 = ref('');   
+            const destination_path_3 = ref('');   
+            const table_columns = ref('psid VARCHAR(100)');
+            const temp_table_1_name = ref('audience_1');
+            const temp_table_2_name = ref('audience_2');
+            const temp_table_3_name = ref('audience_3');
+
+            return {
+              source_file_1, 
+              source_file_2,  
+              source_file_3, 
+              user_name, 
+              destination_path_1, 
+              destination_path_2,  
+              destination_path_3,
+              table_columns,
+              temp_table_1_name,
+              temp_table_2_name,
+              temp_table_3_name
+            }
+          }
+        }).mount('#app')
+    </script>
+
+</body>
+</html>

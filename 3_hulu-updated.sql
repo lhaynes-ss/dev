@@ -2,14 +2,14 @@
  Template: Hulu - LiveRamp & App Pixel Attribution Report
  Wiki: https://adgear.atlassian.net/wiki/spaces/MAST/pages/19409273050/Hulu+-+LiveRamp+App+Pixel+Attribution+Report
 
- Ticket:
+ Sample Ticket:
  https://adgear.atlassian.net/browse/SAI-5826
  ID: 1160536249
 ********************/
 
 -- connection settings
 USE ROLE UDW_CLIENTSOLUTIONS_DEFAULT_CONSUMER_ROLE_PROD;
-USE WAREHOUSE UDW_CLIENTSOLUTIONS_DEFAULT_WH_PROD;
+USE WAREHOUSE UDW_CLIENTSOLUTIONS_DEFAULT_WH_PROD_MEDIUM;
 USE DATABASE UDW_PROD;
 USE SCHEMA PUBLIC;
 
@@ -27,7 +27,7 @@ SET (
 ) = (
     'US',   -- reporting_country
     'Hulu', -- app_name
-    136761, -- reporting_vao
+    140993, -- reporting_vao
     NULL,   -- reporting_vao2 !! If NOT NULL, enable "reporting_vao2" in campaign_meta temp table/vao_samsungCampaignID CTE
     'DAY',  -- attribution_window_unit 
     0       -- attribution_window_liveramp 
@@ -45,7 +45,7 @@ SET (
 DROP TABLE IF EXISTS input_audience_s3;
 CREATE temp TABLE input_audience_s3 (psid VARCHAR(512));
 COPY INTO input_audience_s3
-FROM @adbiz_data.SAMSUNG_ADS_DATA_SHARE/analytics/custom/vaughn/hulu/test/274913_sai5826_20240118.csv
+FROM @adbiz_data.SAMSUNG_ADS_DATA_SHARE/analytics/custom/vaughn/hulu/SAI5825/20240122/274912.csv
 FILE_FORMAT = (format_name = adbiz_data.analytics_csv);
 
 
@@ -436,7 +436,7 @@ GROUP BY 1
 SELECT DISTINCT
     vao,
     auds_cate,
-    campaign_id,
+    -- campaign_id,
     campaign_name,
     expd_liveramp_registered_app_user,
     expd_hr_spent_liveramp_registered_app_user,
@@ -503,7 +503,7 @@ FROM (
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
--- Lift by Impression
+-- Lift by Impression (listed as Lift by Frequency in excel)
 ----------------------
 SELECT DISTINCT
     vao,
@@ -583,7 +583,7 @@ ORDER BY expd_imps ASC
 SELECT DISTINCT
     vao,
     auds_cate,
-    campaign_id,
+    -- campaign_id,
     campaign_name,
     expd_liveramp_registered_app_user,
     expd_hr_spent_liveramp_registered_app_user,
@@ -648,7 +648,9 @@ FROM (
         FROM samsung_ue
         GROUP BY 1
     ) AS d USING (country)
-ORDER BY campaign_name, campaign_id
+ORDER BY 
+    campaign_name
+    -- ,campaign_id
 ;
 
 
@@ -658,7 +660,7 @@ ORDER BY campaign_name, campaign_id
 SELECT DISTINCT
     vao,
     auds_cate,
-    campaign_id,
+    -- campaign_id,
     campaign_name,
     expd_liveramp_registered_app_user,
     expd_hr_spent_liveramp_registered_app_user,
@@ -723,7 +725,9 @@ FROM (
         FROM samsung_ue
         GROUP BY 1
     ) AS d USING (country)
-ORDER BY campaign_name, campaign_id
+ORDER BY 
+    campaign_name
+    --,campaign_id
 ;
 
 
@@ -733,7 +737,7 @@ ORDER BY campaign_name, campaign_id
 SELECT DISTINCT
     vao,
     auds_cate,
-    flight_id,
+    -- flight_id,
     flight_name,
     expd_liveramp_registered_app_user,
     expd_hr_spent_liveramp_registered_app_user,
@@ -798,8 +802,11 @@ FROM (
         FROM samsung_ue
         GROUP BY 1
     ) AS d USING (country)
-ORDER BY flight_name, flight_id
+ORDER BY 
+    flight_name
+    -- ,flight_id
 ;
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------

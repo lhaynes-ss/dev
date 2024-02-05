@@ -472,25 +472,26 @@ GROUP BY 1, 2, 3
 UNION ALL
 SELECT 
     'PLACEMENT' AS view 
-    ,NULL AS first_impression
+    ,MIN(first_impression::DATE) AS first_impression
     ,placement
     ,MEDIAN(exposures) AS median_exposures_til_first_conversion
     ,(MEDIAN(seconds_til_conversion)/60)/60 AS median_hrs_til_first_conversion
     ,COUNT(DISTINCT vtifa) AS conversions
 FROM exp_in_app e
-GROUP BY 1, 2, 3
+GROUP BY 1, 3
 UNION ALL
 SELECT 
     'TOTAL UNIQUE' AS view
-    ,NULL AS first_impression
-    ,NULL AS placement
+    ,MIN(first_impression::DATE) AS first_impression
+    ,'ALL' AS placement
     ,MEDIAN(exposures) AS median_exposures_til_first_conversion
     ,(MEDIAN(seconds_til_conversion)/60)/60 AS median_hrs_til_first_conversion
     ,COUNT(DISTINCT vtifa) AS conversions
 FROM exp_in_app e
-GROUP BY 1, 2, 3
+GROUP BY 1, 3
 ORDER BY 1, 2, 3, 6
 ;
+
 
 
 

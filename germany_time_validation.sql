@@ -444,6 +444,7 @@ CREATE TEMP TABLE exposed_app_open_time AS (
 
 /************
 TEST OUTPUT
+Notes: https://adgear.atlassian.net/wiki/spaces/~71202089b033c00f994ec898e0d54bcb43fdf5/pages/20013776982/Pluto+Global+Time+Spent+Investigation
 ************/
 
 -- check time spent summing

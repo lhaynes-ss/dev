@@ -127,7 +127,7 @@ CREATE TEMP TABLE exposure_stats AS (
     GROUP BY 1,2,3,4
 );
 
-SELECT * FROM exposure_stats LIMIT 100;
+-- SELECT * FROM exposure_stats LIMIT 100;
 
 
 
@@ -270,12 +270,12 @@ CREATE TEMP TABLE first_app_open AS (
     FROM app_usage
     GROUP BY 1,2
 );
-
+/**
 -- SELECT * FROM first_app_open limit 100;
 SELECT * FROM first_app_open 
 -- WHERE tifa = '54d5b671-2fac-09e1-4c52-d0dc13e1fe71' 
 limit 100;
-
+**/
 
 
 -- get first app usage counts by day and country
@@ -294,7 +294,7 @@ CREATE TEMP TABLE daily_downloads_table AS (
     GROUP BY 1,2
 );
 
-SELECT * FROM daily_downloads_table limit 100;
+-- SELECT * FROM daily_downloads_table limit 100;
 
 
 
@@ -322,7 +322,7 @@ CREATE TEMP TABLE app_users AS (
     group by 1,3
 );
 
-SELECT * FROM app_users limit 100;
+-- SELECT * FROM app_users limit 100;
 
 
 

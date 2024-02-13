@@ -445,7 +445,15 @@ CREATE TEMP TABLE exposed_app_open_time AS (
 /************
 TEST OUTPUT
 ************/
+
+-- check time spent summing
+-- with test tifa, time usage matches between raw usage table and placement usage table
+SELECT SUM(time_spent_min) AS time_spent_min FROM app_usage WHERE tifa = '54d5b671-2fac-09e1-4c52-d0dc13e1fe71';
+SELECT SUM(a.time_spent_min) AS time_spent_min FROM exposed_app_open_time a WHERE tifa = '54d5b671-2fac-09e1-4c52-d0dc13e1fe71';
+
+
 -- run time calculations
+-- output matches custom report output showing the following time_spent_min for the "Past 180 Days" placements (3994687, 3965772, 3907556)
 SELECT 
    c.country
    ,c.creative_name
@@ -458,6 +466,7 @@ group by 1, 2, 3
 ;
 
 -- check clicks
+-- returns 682 vs DSP 692
 SELECT SUM(click) AS clicks 
 FROM click_stats
    JOIN creative_map c USING(creative_id, campaign_id, country)
@@ -465,12 +474,10 @@ WHERE c.placement_name = '12/1-12/31 Native Smart TV-1st Screen (2017+): Germany
 ;
 
 -- check impressions
+-- returns 770,137 vs DSP 776,554
 select SUM(impression) AS impressions FROM exposure_stats
    JOIN creative_map c USING(creative_id, campaign_id, country)
 WHERE c.placement_name = '12/1-12/31 Native Smart TV-1st Screen (2017+): Germany - Pluto TV App Openers Past 180 Days'
 ;
 
--- check time spent summing
-SELECT SUM(time_spent_min) AS time_spent_min FROM app_usage WHERE tifa = '54d5b671-2fac-09e1-4c52-d0dc13e1fe71';
-SELECT SUM(a.time_spent_min) AS time_spent_min FROM exposed_app_open_time a WHERE tifa = '54d5b671-2fac-09e1-4c52-d0dc13e1fe71';
 

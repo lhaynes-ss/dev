@@ -219,7 +219,7 @@ CREATE TEMP TABLE app_usage diststyle ALL AS (
       --AND partition_date
       AND fact.country IN ('FR','ES','IT','DE','AT','GB')
       AND end_timestamp - start_timestamp > interval '60'
-      AND DATE_TRUNC('day', fact.start_timestamp) BETWEEN '2023-12-01' and '2024-01-14' -- was commented out
+      -- AND DATE_TRUNC('day', fact.start_timestamp) BETWEEN '2023-12-01' and '2024-01-14' -- was commented out
   )
 
   SELECT 
@@ -566,7 +566,7 @@ CREATE TEMP TABLE exposed_first_time_open_monthly as (
 /*********
  OUTPUT
 *********/
-
+/*********
 ---FR
 
 SELECT  country, 'Pluto TV' AS campaign_name, m.creative_id,creative_name, placement_name,
@@ -790,70 +790,95 @@ USING ( country, date,creative_id, campaign_id)
 where country='GB'
 group by 1,2,3,4,5,6,9,11,13,14,15,16
 ;
-
-
-
-
 -----GSA
-SELECT  'Pluto TV' AS campaign_name, m.creative_id,creative_name, placement_name,
-        TRUNC(date) AS date_of_delivery,
-        TRUNC(campaign_start_date) AS campaign_start_date ,
-        TRUNC(campaign_end_date) AS  campaign_end_date,
-       coalesce(impression,0) as impression, coalesce (click,0) as click,  count_exposed_app_open, count_exposed_first_app_open,  
-        t.total_time_spent_min,    round(t.total_time_spent_min/60,2) total_time_spent_hour--,   daily_downloads,monthly_active_users,  monthly_new_users, monthly_returning_users
-FROM  creative_map m
-left join app_users_daily  using (country)
-left join exposure_stats ex
-USING(country,date, creative_id, campaign_id)
-left JOIN click_stats
-USING(country,date, creative_id, campaign_id)
-left JOIN exposed_app_open as t
-USING (country,date, creative_id, campaign_id)
-left JOIN exposed_first_time_open
-USING (country,date, creative_id, campaign_id)
---left JOIN daily_downloads_table a
---ON date = a.partition_date and m.country=a.country
-where date between '2023-12-01' and '2023-12-31'
-and m.country in ('DE','AT')
-order by date
+
+*********/
+
+-- ----------------
+-- DE - GERMANY
+-- ----------------
+-- By Day
+SELECT  
+    'Pluto TV' AS campaign_name, 
+    m.creative_id,creative_name, 
+    placement_name,
+    TRUNC(date) AS date_of_delivery,
+    TRUNC(campaign_start_date) AS campaign_start_date,
+    TRUNC(campaign_end_date) AS campaign_end_date,
+    coalesce(impression,0) as impression, 
+    coalesce (click,0) as click,  
+    count_exposed_app_open, 
+    count_exposed_first_app_open,  
+    t.total_time_spent_min,    
+    round(t.total_time_spent_min/60,2) total_time_spent_hour --,   daily_downloads,monthly_active_users,  monthly_new_users, monthly_returning_users
+FROM creative_map m
+    LEFT JOIN app_users_daily USING(country)
+    LEFT JOIN exposure_stats ex USING(country, date, creative_id, campaign_id)
+    LEFT JOIN click_stats USING(country, date, creative_id, campaign_id)
+    LEFT JOIN exposed_app_open AS t USING (country, date, creative_id, campaign_id)
+    LEFT JOIN exposed_first_time_open USING(country, date, creative_id, campaign_id)
+    --left JOIN daily_downloads_table a
+    --ON date = a.partition_date and m.country=a.country
+WHERE 
+    DATE BETWEEN '2023-12-01' AND '2023-12-31'
+    AND m.country IN ('DE','AT')
+ORDER BY DATE
 ;
 
 
+-- MAU By Day (DE)
+SELECT  
+    partition_date,
+    daily_downloads,
+    monthly_active_users,  
+    monthly_new_users, 
+    monthly_returning_users
+FROM app_users_daily t
+    JOIN daily_downloads_table a ON date = a.partition_date AND t.country=a.country
+WHERE 
+    a.country='DE'
+ORDER BY partition_date;
 
-select  partition_date,daily_downloads,monthly_active_users,  monthly_new_users, monthly_returning_users
-from app_users_daily t
-JOIN daily_downloads_table a
-ON date = a.partition_date and t.country=a.country
-where a.country='DE'
-order by partition_date;
+
+-- MAU By Day (AT)
+SELECT  
+    partition_date,
+    daily_downloads,
+    monthly_active_users,  
+    monthly_new_users, 
+    monthly_returning_users
+FROM app_users_daily t
+    JOIN daily_downloads_table a ON date = a.partition_date and t.country=a.country
+WHERE a.country='AT'
+ORDER BY partition_date;
 
 
-
-SELECT  'Pluto TV' AS campaign_name, m.creative_id,creative_name, placement_name,
-        TRUNC(campaign_start_date) AS campaign_start_date ,
-        TRUNC(campaign_end_date) AS  campaign_end_date,
-       coalesce(sum(impression),0) as impression, coalesce (sum(click),0) as click,   count_exposed_app_open,  sum(count_exposed_first_app_open) as count_exposed_first_app_open, 
-        t.total_time_spent_min ,    round(total_time_spent_min/60,2) total_time_spent_hour, monthly_new_users as total_daily_downloads,monthly_active_users,  monthly_new_users, monthly_returning_users
-FROM  creative_map m
-join app_users b using(country)
-left join exposure_stats ex
-USING( country,creative_id, campaign_id)
-left JOIN click_stats
-USING( country, date, creative_id, campaign_id)
-left JOIN exposed_app_open_monthly as t
-USING ( country, creative_id, campaign_id)
-left JOIN exposed_first_time_open as g
-USING ( country, date,creative_id, campaign_id)
-where country in ('DE','AT')
-group by 1,2,3,4,5,6,9,11,13,14,15,16
+-- By Month
+SELECT  
+    'Pluto TV' AS campaign_name, 
+    m.creative_id,
+    creative_name, 
+    placement_name,
+    TRUNC(campaign_start_date) AS campaign_start_date,
+    TRUNC(campaign_end_date) AS  campaign_end_date,
+    COALESCE(SUM(impression),0) AS impression, 
+    COALESCE(SUM(click),0) AS click,   
+    count_exposed_app_open,  
+    SUM(count_exposed_first_app_open) AS count_exposed_first_app_open, 
+    t.total_time_spent_min,    
+    ROUND(total_time_spent_min/60,2) total_time_spent_hour, 
+    monthly_new_users AS total_daily_downloads,
+    monthly_active_users,  
+    monthly_new_users, 
+    monthly_returning_users
+FROM creative_map m
+    JOIN app_users b using(country)
+    LEFT JOIN exposure_stats ex USING( country,creative_id, campaign_id)
+    LEFT JOIN click_stats USING( country, date, creative_id, campaign_id)
+    LEFT JOIN exposed_app_open_monthly AS t USING ( country, creative_id, campaign_id)
+    LEFT JOIN exposed_first_time_open AS g USING ( country, date, creative_id, campaign_id)
+WHERE 
+    country IN ('DE','AT')
+GROUP BY 1, 2, 3, 4, 5, 6, 9, 11, 13, 14, 15, 16
 ;
---AT
 
-
-
-select  partition_date,daily_downloads,monthly_active_users,  monthly_new_users, monthly_returning_users
-from app_users_daily t
-JOIN daily_downloads_table a
-ON date = a.partition_date and t.country=a.country
-where a.country='AT'
-order by partition_date;

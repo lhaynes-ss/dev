@@ -1,7 +1,25 @@
--- EU Monthly
--- must be run on CDW EU
 /**
 
+Pluto Global Monthly Report (EU Monthly)
+============================
+Run on 15th of the month for previous month +14 day attribution window
+-- must be run on CDW EU
+
+=================
+FIND AND REPLACE
+=================
+Begining of Month: '2023-12-01' -- 'YYYY-MM-DD'
+End of Month: '2023-12-31' -- 'YYYY-MM-DD'
+End of Month with Attribution Window: '2024-01-14' -- 'YYYY-MM-DD'
+
+**/
+
+
+
+
+/**
+TESTING
+=========================================
 Pluto - Germany | Time spenf off
 
 Today I will try to verify the theory  by:
@@ -24,18 +42,12 @@ HAVING DATEDIFF(DAY, first_imp, last_imp) >= 7
 AND first_imp <= date_first_open
 LIMIT 1000;
 
-**/
-/**
-=================
-FIND AND REPLACE
-=================
-Begining of Month: '2023-12-01' -- 'YYYY-MM-DD'
-End of Month: '2023-12-31' -- 'YYYY-MM-DD'
-End of Month with Attribution Window: '2024-01-14' -- 'YYYY-MM-DD'
-**/
-
-
 -- TEST TIFA: '54d5b671-2fac-09e1-4c52-d0dc13e1fe71'
+=========================================
+**/
+
+
+
 
 -- import mapping file
 DROP TABLE IF EXISTS place_mapping;

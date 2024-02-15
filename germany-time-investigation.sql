@@ -5,6 +5,9 @@ Pluto Global Monthly Report (EU Monthly)
 Run on 15th of the month for previous month +14 day attribution window
 -- must be run on CDW EU
 
+Original Query: 
+https://github.com/SamsungAdsAnalytics/QueryBase/blob/master/UDW/MnE/Content_Partner/Pluto_TV/EMEA_CDW/2023Q4/Pluto_EU_monthly.sql
+
 =================
 FIND AND REPLACE
 =================

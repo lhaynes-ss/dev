@@ -29,6 +29,30 @@ ANALYZE place_mapping;
 
 
 
+--=====================
+--=====================
+-- START TEST
+-- exclude campaign 152392
+/**
+DROP TABLE IF EXISTS place_mapping_temp;
+CREATE TEMP TABLE place_mapping_temp AS (
+    SELECT * FROM place_mapping 
+    WHERE campaign_id <> 152392 
+);
+
+DROP TABLE IF EXISTS place_mapping;
+CREATE TEMP TABLE place_mapping AS (
+    SELECT * FROM place_mapping_temp
+);
+
+SELECT * FROM place_mapping;
+**/
+-- END TEST
+--=====================
+--=====================
+
+
+
 -- get list of creatives from mapping file
 DROP TABLE IF EXISTS creative_map;
 CREATE TEMP TABLE creative_map AS (

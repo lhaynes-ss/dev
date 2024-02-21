@@ -151,22 +151,22 @@ CREATE TEMP TABLE creative_map AS (
 
 
 -- get all app usage for Pluto TV, all time
--- !!!! potential issue with duplicates !!!!
+-- added distinct and timestamp for potential issue with duplicates
 DROP TABLE IF EXISTS app_usage;
 CREATE TEMP TABLE app_usage diststyle ALL AS (
-    SELECT 
+    SELECT DISTINCT
         country, 
-        psid_tvid(psid) as tifa, 
+        psid_tvid(psid) AS tifa, 
+        fact.start_timestamp,
         DATE_TRUNC('day', fact.start_timestamp) AS partition_date,
-        SUM(DATEDIFF('minutes',start_timestamp,end_timestamp)) AS time_spent_min,
-        round(time_spent_min/60,2) AS time_spent_hour
+        SUM(DATEDIFF('minutes', start_timestamp, end_timestamp)) AS time_spent_min,
+        ROUND(time_spent_min/60,2) AS time_spent_hour
     FROM data_tv_acr.fact_app_usage_session AS fact
     WHERE 
         app_id IN (SELECT app_id FROM app_program_id WHERE prod_nm = 'Pluto TV')  -- Change Channel name
-        --AND partition_date
         AND fact.country IN ('FR','ES','IT','DE','AT','GB')
         AND end_timestamp - start_timestamp > interval '60'
-        --AND DATE_TRUNC('day', fact.start_timestamp) >= '2022-09-15'
+        AND DATE_TRUNC('day', fact.start_timestamp) BETWEEN DATEADD('month', -18, '2023-12-01') AND '2024-01-14'
     GROUP BY 1,2,3
 );
 
@@ -339,16 +339,21 @@ CREATE TEMP TABLE exposed_app_open_monthly as (
 
 -- NEW
 DROP TABLE IF EXISTS exposed_app_open_monthly;
-CREATE TEMP TABLE exposed_app_open_monthly as (
-    SELECT distinct  
-        a.country, 
+CREATE TEMP TABLE exposed_app_open_monthly AS (
+    SELECT DISTINCT 
+        a.country,
         creative_id, 
-        campaign_id, 
+        campaign_id,  
         COUNT(DISTINCT a.tifa) AS count_exposed_app_open,  
         SUM(time_spent_min) AS total_time_spent_min
-    FROM exposed_app_open_ a
-        JOIN (SELECT * FROM app_usage WHERE partition_date >= (SELECT MIN(campaign_start_date) FROM creative_map)) b
-        ON (a.tifa = b.tifa AND a.date <= b.partition_date and a.country=b.country and partition_date between '2023-12-01' and '2024-01-14')
+    FROM (
+        SELECT * FROM exposure_log 
+        UNION SELECT * FROM click_log
+    ) a
+        JOIN (
+            SELECT * FROM app_usage 
+            WHERE partition_date >= (SELECT MIN(campaign_start_date) FROM creative_map)
+        ) b  ON (a.tifa = b.tifa AND a.expose_date <= b.partition_date AND a.country = b.country AND DATEDIFF(DAY, expose_date, partition_date) <= 14)
     GROUP BY 1,2,3
 );
 

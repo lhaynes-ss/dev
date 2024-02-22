@@ -8,12 +8,22 @@ Run on 15th of the month for previous month +14 day attribution window
 Original Query: 
 https://github.com/SamsungAdsAnalytics/QueryBase/blob/master/UDW/MnE/Content_Partner/Pluto_TV/EMEA_CDW/2023Q4/Pluto_EU_monthly.sql
 
+
+Regions:
+France, Italy, Spain, UK, Germany
+
+Instructions:
+https://adgear.atlassian.net/wiki/spaces/~631683943/pages/19879789397/P+and+Pluto+Coverage+Instructions
+
+Todo: Add campaign and placement ID to the output. Until then, also remove line item id from mapping file.
+
 =================
 FIND AND REPLACE
 =================
 Begining of Month: '2023-12-01' -- 'YYYY-MM-DD'
 End of Month: '2023-12-31' -- 'YYYY-MM-DD'
 End of Month with Attribution Window: '2024-01-14' -- 'YYYY-MM-DD'
+Mapping file: 's3://samsung.ads.data.share/analytics/custom/vaughn/pluto/20240207_pluto_de_monthly_updated.csv'
 
 **/
 
@@ -52,6 +62,7 @@ CREATE temp TABLE app_program_id diststyle ALL AS (
     FROM meta_apps.meta_taps_sra_app_lang_l
     WHERE prod_nm IN ('Pluto TV')
 );
+
 analyze app_program_id;
 
 
@@ -62,6 +73,7 @@ CREATE TEMP TABLE exposure_log AS (
     SELECT
         device_country as country,
         samsung_tvid AS tifa,
+        fact.event_time,
         DATE_TRUNC('day', fact.event_time) AS expose_date,
         creative_id,
         campaign_id
@@ -99,6 +111,7 @@ CREATE TEMP TABLE click_log AS (
     SELECT
         device_country as country,
         samsung_tvid AS tifa,
+        fact.event_time,
         DATE_TRUNC('day', fact.event_time) AS expose_date,
         creative_id,
         campaign_id
@@ -151,10 +164,9 @@ CREATE TEMP TABLE creative_map AS (
 
 
 -- get all app usage for Pluto TV, all time
--- added distinct and timestamp for potential issue with duplicates
 DROP TABLE IF EXISTS app_usage;
 CREATE TEMP TABLE app_usage diststyle ALL AS (
-    SELECT DISTINCT
+    SELECT
         country, 
         psid_tvid(psid) AS tifa, 
         fact.start_timestamp,
@@ -340,21 +352,47 @@ CREATE TEMP TABLE exposed_app_open_monthly as (
 -- NEW
 DROP TABLE IF EXISTS exposed_app_open_monthly;
 CREATE TEMP TABLE exposed_app_open_monthly AS (
-    SELECT DISTINCT 
-        a.country,
-        creative_id, 
-        campaign_id,  
-        COUNT(DISTINCT a.tifa) AS count_exposed_app_open,  
-        SUM(time_spent_min) AS total_time_spent_min
-    FROM (
+
+    -- get exposure (clicks and impressions)
+    WITH exposure_cte AS (
         SELECT * FROM exposure_log 
         UNION SELECT * FROM click_log
-    ) a
-        JOIN (
-            SELECT * FROM app_usage 
-            WHERE partition_date >= (SELECT MIN(campaign_start_date) FROM creative_map)
-        ) b  ON (a.tifa = b.tifa AND a.expose_date <= b.partition_date AND a.country = b.country AND DATEDIFF(DAY, expose_date, partition_date) <= 14)
-    GROUP BY 1,2,3
+    )
+
+    -- get app usage
+    ,app_usage_cte AS (
+        SELECT * 
+        FROM app_usage 
+        WHERE partition_date >= (SELECT MIN(campaign_start_date) FROM creative_map)
+    )
+
+    -- join usage on exposure. order by date of exposure. Contains all exposures but used to find first exposure per app usage
+    ,first_exposure_cte AS (
+        SELECT 
+            e.country
+            ,e.creative_id
+            ,e.campaign_id 
+            ,e.tifa
+            ,e.expose_date
+            ,u.time_spent_min
+            ,ROW_NUMBER() OVER(PARTITION BY e.country, e.tifa, e.campaign_id, e.creative_id, u.start_timestamp ORDER BY e.event_time) AS rn
+        FROM exposure_cte e
+            JOIN app_usage_cte u  ON e.tifa = u.tifa 
+                AND e.expose_date <= u.partition_date 
+                AND e.country = u.country 
+                AND DATEDIFF(DAY, e.expose_date, u.partition_date) <= 14
+    )
+
+    -- final selection
+    -- only give time spent credit to first exposures
+    SELECT 
+        f.country
+        ,creative_id
+        ,campaign_id
+        ,COUNT(DISTINCT tifa) AS count_exposed_app_open
+        ,SUM(CASE WHEN rn = 1 THEN time_spent_min ELSE 0 END) AS total_time_spent_min
+    FROM first_exposure_cte f
+    GROUP BY 1, 2, 3
 );
 
 --SELECT * FROM exposed_first_time_open limit 100;
@@ -433,10 +471,10 @@ CREATE TEMP TABLE exposed_first_time_open_monthly as (
 /*********
  OUTPUT
 *********/
-/**
 -- ----------------
 -- FR - France
 -- ----------------
+SELECT 'BEGIN FRANCE';
 -- ----------------------------------------------
 -- By Day
 SELECT  
@@ -513,11 +551,13 @@ WHERE country = 'FR'
 GROUP BY 1, 2, 3, 4, 5, 6, 9, 11, 13, 14, 15, 16
 ;
 -- ----------------------------------------------
+-- ----------------------------------------------
 
 
 -- ----------------
 -- IT - Italy
 -- ----------------
+SELECT 'BEGIN ITALY';
 -- ----------------------------------------------
 -- By Day
 SELECT  
@@ -591,11 +631,13 @@ WHERE country = 'IT'
 GROUP BY 1, 2, 3, 4, 5, 6, 9, 11, 13, 14, 15, 16
 ;
 -- ----------------------------------------------
+-- ----------------------------------------------
 
 
 -- ----------------
 -- ES - Spain
 -- ----------------
+SELECT 'BEGIN SPAIN';
 -- ----------------------------------------------
 -- By Day
 SELECT  
@@ -669,11 +711,13 @@ WHERE country = 'ES'
 GROUP BY 1, 2, 3, 4, 5, 6, 9, 11, 13, 14, 15, 16
 ;
 -- ----------------------------------------------
+-- ----------------------------------------------
 
 
 -- ----------------
 -- GB - United Kingdom (UK)
 -- ----------------
+SELECT 'BEGIN UK';
 -- ----------------------------------------------
 -- By Day
 SELECT  
@@ -747,11 +791,13 @@ WHERE country = 'GB'
 GROUP BY 1, 2, 3, 4, 5, 6, 9, 11, 13, 14, 15, 16
 ;
 -- ----------------------------------------------
-**/
+-- ----------------------------------------------
+
 
 -- ----------------
 -- DE - GERMANY
 -- ----------------
+SELECT 'BEGIN GERMANY';
 -- ----------------------------------------------
 -- By Day
 SELECT  

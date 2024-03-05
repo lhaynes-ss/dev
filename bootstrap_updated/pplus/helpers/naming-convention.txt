@@ -1,0 +1,12 @@
+
+s3://dev-samsung-dm-data-share-paramount-plus/paramount_plus_us/
+s3://dev-samsung-dm-data-share-paramount-plus/paramount-plus-international/
+
+
+s3://<env>-samsung-dm-data-share-paramount-plus/<partner>_<region>/<interval: weekly|monthly>/<partner>_<region>_<interval: weekly|monthly>_<descriptor*>_<start_dt>_<end_dt>.csv
+
+
+s3://dev-samsung-dm-data-share-paramount-plus/paramount_plus_us/weekly/paramount_plus_us_weekly_download_2022-01-01_2023-12-31.csv
+s3://dev-samsung-dm-data-share-paramount-plus/paramount_plus_us/weekly/paramount_plus_us_weekly_campaign_2022-01-01_2023-12-31.csv
+s3://dev-samsung-dm-data-share-paramount-plus/paramount_plus_us/weekly/paramount_plus_us_weekly_time_2022-01-01_2023-12-31.csv
+

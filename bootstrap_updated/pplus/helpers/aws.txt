@@ -1,0 +1,15 @@
+20240226_p_aus_sample.csv
+20240226_p_fr_sample.csv
+
+aws --profile nyc s3 ls s3://samsung.ads.data.share/analytics/custom/vaughn/paramount/
+
+aws --profile nyc s3 cp #### s3://samsung.ads.data.share/analytics/custom/vaughn/paramount/
+
+
+
+aws --profile nyc s3 cp 20240226_p_aus_sample.csv s3://samsung.ads.data.share/analytics/custom/vaughn/paramount/
+aws --profile nyc s3 cp 20240226_p_fr_sample.csv s3://samsung.ads.data.share/analytics/custom/vaughn/paramount/
+
+
+s3://samsung.ads.data.share/analytics/custom/vaughn/paramount/20240226_p_aus_sample.csv
+s3://samsung.ads.data.share/analytics/custom/vaughn/paramount/20240226_p_fr_sample.csv

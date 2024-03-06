@@ -17,6 +17,8 @@ print('Starting job...\n')
 app_config  = cfg.get_app_config()
 path        = app_config['path']
 
+udw_dict    = {}
+
 
 # get json file
 with open(f"{path}output\\upload_list.json") as input_file:
@@ -39,11 +41,29 @@ with open(f"{path}output\\upload_list.json") as input_file:
         s3_bucket   = f_dictionary['s3_bucket']
         s3_prefix   = f_dictionary['s3_prefix']
         interval    = f_dictionary['interval']
+        stage       = f_dictionary['stage']
+        cols        = f_dictionary['cols']
+
+        # build a list of "copy to" and "copy from" paths for UDW
+        if stage != '':
+            udw_dict[f_name] = {
+                'to': f"{stage}{interval}/{f_name}" 
+                ,'from': f"s3://{s3_bucket}/{s3_prefix}{interval}/{f_name}"
+                ,'cols': cols
+             }
+
 
         print(f_path)
         print(f"Copying {f_name}...")
         s3.upload_file(f_path, s3_bucket, f"{s3_prefix}{interval}/{f_name}")
         print(f"File Copied.\n")
+
+
+    s3.close()
+
+# save file dictionary as json
+with open(f"{path}output\\udw_list.json", "w") as output_file: 
+    json.dump(udw_dict, output_file)
 
 
 print('Done!')

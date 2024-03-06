@@ -27,8 +27,11 @@ end_date    = report_config['end_date']
 
 # io variables
 path                        = app_config['path']
+udw_stage_keys              = app_config['udw_stage_keys']
 destination_bucket_keys     = app_config['destination_bucket_keys']
-file_dict   = {} # dictionary to hold output files for s3
+app_temp_storage_bucket     = destination_bucket_keys['app_temp_storage']['bucket']
+app_temp_storage_prefix     = destination_bucket_keys['app_temp_storage']['prefix']
+file_dict                   = {} # dictionary to hold output files for s3
 
 
 def convert_coordinates_to_dataframe(table_coordinates, sheet):
@@ -38,7 +41,7 @@ def convert_coordinates_to_dataframe(table_coordinates, sheet):
     # store table contents in array
     data_rows = []
     for row in sheet[table_coordinates]:
-        data_rows.append([cell.value for cell in row])
+        data_rows.append([str(cell.value).replace(",", " ") for cell in row])
     
     # create dataframe from array
     df = pd.DataFrame(data_rows, columns = get_column_interval(col_start, col_end))
@@ -60,6 +63,15 @@ for report in report_config['reports']:
 
     s3_bucket   = destination_bucket_keys[bucket_key]['bucket']
     s3_prefix   = destination_bucket_keys[bucket_key]['prefix']
+    stage_key   = destination_bucket_keys[bucket_key]['udw_stage']
+    stage       = udw_stage_keys[stage_key]['stage'] if stage_key != '' else ''
+
+
+    # if using a stage, override bucket and prefix; use temp storage
+    if stage != '':
+        s3_bucket = app_temp_storage_bucket
+        s3_prefix = app_temp_storage_prefix + s3_prefix
+
 
     wb          = load_workbook(path + filename, data_only = True) # workbook (file)
     ws          = wb[interval] # worksheet (use interval for worksheet name)
@@ -81,6 +93,7 @@ for report in report_config['reports']:
         
         # print(f"DataFrame from Table '{table_name}'")
         # print(df)
+        # print(df.columns.values)
 
         output_file = f"{partner}_{region}_{interval}_{table_name}_{start_date}_{end_date}.csv"
         output_file_path = f"{path}output\\{output_file}"
@@ -90,6 +103,8 @@ for report in report_config['reports']:
             ,'s3_bucket': s3_bucket
             ,'s3_prefix': s3_prefix
             ,'interval': interval
+            ,'stage': stage
+            ,'cols': df.columns.values.tolist()
         }
 
         print(f"Building {output_file_path}...")

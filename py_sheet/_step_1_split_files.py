@@ -10,6 +10,7 @@ from openpyxl.utils import get_column_interval
 from openpyxl.utils.cell import coordinate_from_string as cfs
 import pandas as pd
 import json
+from datetime import date
 import _config as cfg
 
 
@@ -23,6 +24,7 @@ report_config   = cfg.get_report_config()
 
 start_date  = report_config['start_date']
 end_date    = report_config['end_date']
+today       = date.today()
 
 
 # io variables
@@ -49,6 +51,8 @@ def convert_coordinates_to_dataframe(table_coordinates, sheet):
     df.columns = df.iloc[0] # Change header to first row
     df = df[1:]  # remove first row from DataFrame to remove the duplicate
 
+    df.insert(0,'report_exec_date', today)
+
     return df
 
 
@@ -74,14 +78,16 @@ for report in report_config['reports']:
 
 
     wb          = load_workbook(path + filename, data_only = True) # workbook (file)
-    ws          = wb[interval] # worksheet (use interval for worksheet name)
     df_dict     = {} # Dictionary to hold the dataframe for each table
+    # ws          = wb[interval] # worksheet (use interval for worksheet name)
 
 
-    ### Get the table coordinates from the worksheet table dictionary
-    for tblname, tblcoord in ws.tables.items():
-        print(f"Table Name: {tblname}, Coordinate: {tblcoord}")
-        df_dict[tblname] = convert_coordinates_to_dataframe(tblcoord, ws)  # Convert to dataframe
+    for ws in wb.worksheets:
+
+        ### Get the table coordinates from the worksheet table dictionary
+        for tblname, tblcoord in ws.tables.items():
+            print(f"Table Name: {tblname}, Coordinate: {tblcoord}")
+            df_dict[tblname] = convert_coordinates_to_dataframe(tblcoord, ws)  # Convert to dataframe
 
 
     # add spacer in output

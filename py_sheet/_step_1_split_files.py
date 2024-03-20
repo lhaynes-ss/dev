@@ -10,7 +10,8 @@ from openpyxl.utils import get_column_interval
 from openpyxl.utils.cell import coordinate_from_string as cfs
 import pandas as pd
 import json
-from datetime import date
+from datetime import datetime, timedelta, date
+import click
 import _config as cfg
 
 
@@ -25,6 +26,7 @@ report_config   = cfg.get_report_config()
 start_date  = report_config['start_date']
 end_date    = report_config['end_date']
 today       = report_config['report_execution_date'] # date.today()
+interval    = report_config['interval'] 
 
 
 # io variables
@@ -36,6 +38,61 @@ app_temp_storage_prefix     = destination_bucket_keys['app_temp_storage']['prefi
 file_dict                   = {} # dictionary to hold output files for s3
 
 
+# force script runner to verify dates
+now = date.today()
+
+# Calculate the offset needed to go back to the most recent Sunday
+# This is done by finding the difference between the current weekday and Sunday (6), and taking modulo 7
+if interval == 'weekly':
+    offset              = (now.weekday() - 6) % 7 
+    last_sunday         = now - timedelta(days = offset)
+    prev_monday         = last_sunday - timedelta(days = 6)
+    report_executed_day = last_sunday + timedelta(days = 1)
+
+    auto_start_date     = prev_monday
+    auto_end_date       = last_sunday
+    auto_execute_date   = report_executed_day
+
+else:
+    last_month = now - timedelta(weeks = 4)
+    window_end = now.replace(day = 14) # for monthly this is the 14th of the current month
+    report_executed_day = now.replace(day = 15) # for monthly this should be the 15th of the current month
+    window_start = last_month.replace(day = 1) # for monthly this is the 1st of last month !!!!!
+
+    auto_start_date     = window_start
+    auto_end_date       = window_end
+    auto_execute_date   = report_executed_day
+
+
+print("\nVerify report dates:\n")
+print("You have:")
+print("============")
+print(f"start_date:             {start_date}")
+print(f"end_date:               {end_date}")
+print(f"report_execution_date:  {today}")
+print("\n")
+print("Recommended:")
+print("============")
+print(f"start_date:             {auto_start_date}")
+print(f"end_date:               {auto_end_date}")
+print(f"report_execution_date:  {auto_execute_date}")
+print("\n")
+
+if click.confirm("Would you like to use the recommended dates instead?", default=True):
+    start_date  = auto_start_date
+    end_date    = auto_end_date
+    today       = auto_execute_date
+
+    print('Switched to recommended dates.')
+else:
+    print('Keeping config dates.')
+
+print("Continuing...\n")
+
+# quit()
+
+
+# generate data frame
 def convert_coordinates_to_dataframe(table_coordinates, sheet):
     col_start = cfs(table_coordinates.split(':')[0])[0]
     col_end = cfs(table_coordinates.split(':')[1])[0]
@@ -61,7 +118,6 @@ for report in report_config['reports']:
     # report variables
     partner     = report['partner'] # 'paramount_plus'
     region      = report['region'] # uk
-    interval    = report['interval'] # weekly
     filename    = report['filename']
     bucket_key  = report['bucket_key']
 

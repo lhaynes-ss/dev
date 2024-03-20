@@ -65,6 +65,7 @@ else:
 
 
 print("\nVerify report dates:\n")
+print(f"{interval} Interval...\n")
 print("You have:")
 print("============")
 print(f"start_date:             {start_date}")

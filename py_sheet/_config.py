@@ -46,6 +46,7 @@ def get_report_config():
     return {
         'start_date': '2024-02-19'
         ,'end_date': '2024-02-25'
+        ,'report_execution_date': '2024-02-26'
         ,'reports':[
             # {
             #     'partner': 'paramount_plus'                       # paramount_plus | pluto

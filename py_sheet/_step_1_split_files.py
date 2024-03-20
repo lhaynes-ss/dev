@@ -24,7 +24,7 @@ report_config   = cfg.get_report_config()
 
 start_date  = report_config['start_date']
 end_date    = report_config['end_date']
-today       = date.today()
+today       = report_config['report_execution_date'] # date.today()
 
 
 # io variables

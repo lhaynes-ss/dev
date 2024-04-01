@@ -47,11 +47,11 @@ def get_report_config():
         'start_date': '2024-02-19'
         ,'end_date': '2024-02-25'
         ,'report_execution_date': '2024-02-26'
-        ,'interval': 'weekly' # weekly | monthly
         ,'reports':[
             # {
             #     'partner': 'paramount_plus'                       # paramount_plus | pluto
             #     ,'bucket_key': 'dev_test'                             # see 'destination_bucket_keys' dictionary above for options
+            #     ,'interval': 'weekly'                             # weekly | monthly
             #     ,'region': 'au'                                   # e.g., fr | es | de | it
             #     ,'filename': 'input\\test_files\\test_pplus_au.xlsx'     # file name or path relative to this directory
             # }
@@ -60,12 +60,14 @@ def get_report_config():
             # --------------------------------------
             {
                 'partner': 'paramount_plus'
+                ,'interval': 'weekly'
                 ,'bucket_key': 'prod_test' 
                 ,'region': 'au'
                 ,'filename': 'input\\test_files\\test_pplus_au.xlsx'
             }
             ,{
                 'partner': 'paramount_plus'
+                ,'interval': 'weekly'
                 ,'bucket_key': 'prod_test' 
                 ,'region': 'fr'
                 ,'filename': 'input\\test_files\\test_pplus_fr.xlsx'
@@ -75,12 +77,14 @@ def get_report_config():
             # --------------------------------------
             ,{
                 'partner': 'pluto'
+                ,'interval': 'weekly'
                 ,'bucket_key': 'prod_test' 
                 ,'region': 'de'
                 ,'filename': 'input\\test_files\\test_pluto_de.xlsx'
             }
             ,{
                 'partner': 'pluto'
+                ,'interval': 'weekly'
                 ,'bucket_key': 'prod_test'
                 ,'region': 'fr'
                 ,'filename': 'input\\test_files\\test_pluto_fr.xlsx'

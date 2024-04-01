@@ -15,6 +15,7 @@ app_config  = cfg.get_app_config()
 path        = app_config['path']
 
 udw_dict    = {}
+content     = ""
 
 
 # get json file
@@ -44,9 +45,12 @@ with open(f"{path}output\\upload_list.json") as input_file:
              }
 
 
-        print(f"aws --profile nyc s3 ls s3://{s3_bucket}/{s3_prefix}{interval}/{f_name}")
+        content = f"{content}aws --profile nyc s3 ls s3://{s3_bucket}/{s3_prefix}{interval}/{f_name}\n"
 
 
+f = open(f"{path}output\\aws.txt", "w")
+f.write(content)
+f.close()
 print('Done!')
 
 

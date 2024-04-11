@@ -1,13 +1,29 @@
+'''
+Org Time Tracking
+---------------------
+Objective is to distribute excel time tracking templates. End users will log time spent for tasks for 5 weeks. 
+At the end of that period we will collect the data for reporting.
+
+https://adgear.atlassian.net/browse/SAI-6348
+
+This program extracts time data from xlsx spreadsheets for import in UDW.
+'''
+
 import glob
 import pandas as pd 
 from _extract import extract_file
 
 print('Starting batch process...')
 
+
+# set variables
+app_path    = r'C:\Users\l.haynes\Desktop\py_edit'
+
+
 # try to get file list
 documents   = set()
-dir_path    = r'C:\Users\l.haynes\Desktop\py_edit\files\**\*.xlsx'
-output_path = r'C:\Users\l.haynes\Desktop\py_edit\output'
+dir_path    = fr'{app_path}\files\**\*.xlsx'
+output_path = fr'{app_path}\output'
 
 # to keep track of files not able to be extracted
 fail_list = []

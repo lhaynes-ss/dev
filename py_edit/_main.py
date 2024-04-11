@@ -2,11 +2,14 @@ import glob
 import pandas as pd 
 from _extract import extract_file
 
+print('Starting batch process...')
+
 # try to get file list
 documents   = set()
 dir_path    = r'C:\Users\l.haynes\Desktop\py_edit\files\**\*.xlsx'
 output_path = r'C:\Users\l.haynes\Desktop\py_edit\output'
 
+# to keep track of files not able to be extracted
 fail_list = []
 
 
@@ -18,6 +21,8 @@ documents_length = len(documents)
 
 if documents_length == 0:
     print("The files couldn't be read.")
+    print('Done!')
+
     quit()
 
 
@@ -37,4 +42,7 @@ for file in documents:
 if len(fail_list) > 0:
     df = pd.DataFrame(fail_list)
     df.to_csv(f"{output_path}/failures.csv", header = False, index = False)
+
+
+print('Done!')
 

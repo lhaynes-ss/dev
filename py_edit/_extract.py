@@ -98,6 +98,20 @@ def extract_file(file_path_in, file_path_out):
     # Using drop() function to delete last row
     output.drop(index = output.index[-1], axis = 0, inplace = True)
 
+    '''
+    # make sure both versions of the template contain the same number of columns
+    if 'Vertical' not in output:
+        # Insert after VTS
+        # print('No vertical')
+        output.insert(4, 'Vertical', '')
+
+
+    if 'Team' not in output:
+        # insert after Vertical
+        # print('No team')
+        output.insert(5, 'Team', '')
+    '''
+
     # print(output)
     new_file_path_out = fr"{file_path_out}/{dirname}/"
     pathExists = os.path.exists(new_file_path_out)

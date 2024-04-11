@@ -52,7 +52,7 @@ COPY INTO org_time_tracking_raw
 
 
 DROP TABLE IF EXISTS org_time_tracking;
-CREATE TEMP TABLE org_time_tracking (
+CREATE TEMP TABLE org_time_tracking AS (
     SELECT 
         name
         ,role
@@ -89,3 +89,5 @@ CREATE TEMP TABLE org_time_tracking (
         ,date_17_may
     FROM org_time_tracking_raw
 );
+
+SELECT * FROM org_time_tracking LIMIT 100;

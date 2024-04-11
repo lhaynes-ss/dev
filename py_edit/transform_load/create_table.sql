@@ -1,10 +1,12 @@
+-- FOR DEVELOPMENT ONLY. NOT FOR PRODUCTION
+
 -- LIST @adbiz_data.samsung_ads_data_share/analytics/custom/vaughn/test/foo/;
 -- aws --profile nyc s3 cp john_doe.csv s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/
 -- @adbiz_data.samsung_ads_data_share/analytics/custom/vaughn/test/foo/john_doe.csv 
 -- udw_prod.udw_clientsolutions_cs.org_time_tracking
 
 
-
+/****
 DROP TABLE IF EXISTS org_time_tracking_raw;
 CREATE TEMP TABLE org_time_tracking_raw (
     name VARCHAR(556)
@@ -48,9 +50,12 @@ COPY INTO org_time_tracking_raw
   FROM @adbiz_data.samsung_ads_data_share/analytics/custom/vaughn/test/foo/john_doe.csv
   FILE_FORMAT = (FORMAT_NAME = adbiz_data.mycsvformat3);
 
--- SELECT * FROM org_time_tracking_raw LIMIT 100;
+-- CREATE OR REPLACE TABLE udw_prod.udw_clientsolutions_cs.org_time_tracking_raw AS 
+-- SELECT * FROM org_time_tracking_raw LIMIT 1;
+***/
 
 
+/****
 DROP TABLE IF EXISTS org_time_tracking;
 CREATE TEMP TABLE org_time_tracking AS (
     SELECT 
@@ -90,4 +95,8 @@ CREATE TEMP TABLE org_time_tracking AS (
     FROM org_time_tracking_raw
 );
 
-SELECT * FROM org_time_tracking LIMIT 100;
+
+-- CREATE OR REPLACE TABLE udw_prod.udw_clientsolutions_cs.org_time_tracking AS 
+-- SELECT * FROM org_time_tracking LIMIT 100;
+****/
+

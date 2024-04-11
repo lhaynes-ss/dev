@@ -53,21 +53,23 @@ def extract_file(file_path_in, file_path_out):
     timesheet_data  = pd.DataFrame()
     user_data       = pd.DataFrame()
     selected_user   = pd.DataFrame()
+    department      = pd.DataFrame()
 
+
+    # tables that contain the data that we are interested in
+    timesheet_table_list = ['log']
+    user_table_list = ['staff', 'member', 'department']
 
 
     # get the table coordinates from the worksheet table dictionary
     for tblname, tblcoord in ws_timesheet.tables.items():
-        if tblname == 'log':
+        if tblname in timesheet_table_list:
             # print(f"Table Name: {tblname}, Coordinate: {tblcoord}\n")
             df_dict[tblname] = convert_coordinates_to_dataframe(tblcoord, ws_timesheet)  # Convert to dataframe
 
-    for tblname, tblcoord in ws_user.tables.items():
-        if tblname == 'staff':
-            # print(f"Table Name: {tblname}, Coordinate: {tblcoord}\n")
-            df_dict[tblname] = convert_coordinates_to_dataframe(tblcoord, ws_user)  # Convert to dataframe
 
-        if tblname == 'member':
+    for tblname, tblcoord in ws_user.tables.items():
+        if tblname in user_table_list:
             # print(f"Table Name: {tblname}, Coordinate: {tblcoord}\n")
             df_dict[tblname] = convert_coordinates_to_dataframe(tblcoord, ws_user)  # Convert to dataframe
 
@@ -80,6 +82,10 @@ def extract_file(file_path_in, file_path_out):
     selected_user = df_dict['member']
     selected_user_name = (selected_user.to_dict())['Selected Team Member'][1]
 
+    # get department
+    department = df_dict['department']
+    department['id'] = 1
+
     # get time data
     timesheet_data = df_dict['log']
     timesheet_data['id'] = 1
@@ -91,6 +97,7 @@ def extract_file(file_path_in, file_path_out):
     user_data['id'] = 1
 
     # prep output
+    user_data = user_data.merge(department, on = 'id')
     output = user_data.merge(timesheet_data, on = 'id')
     output = output.drop('id', axis = 1)
     output = output.replace(to_replace = "None", value = "0")

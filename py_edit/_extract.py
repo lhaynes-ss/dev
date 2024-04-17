@@ -48,7 +48,7 @@ def extract_file(file_path_in, file_path_out):
     # variables
     wb              = load_workbook(file_path_in, data_only = True) # workbook (file)
     df_dict         = {} # timesheet hours
-    ws_timesheet    = wb['CSM Template'] # worksheet (timesheet)
+    ws_timesheet    = wb['Tasks'] # worksheet (timesheet)
     ws_user         = wb['Settings'] # worksheet (user details)
     timesheet_data  = pd.DataFrame()
     user_data       = pd.DataFrame()

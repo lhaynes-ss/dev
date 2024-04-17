@@ -1,6 +1,14 @@
 -- https://adgear.atlassian.net/browse/SAI-6350
+
+-- upload
 -- navigate to my project: cd Desktop/py_edit/
 -- aws --profile nyc s3 cp output/ s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ --recursive 
+
+-- check
+-- aws --profile nyc s3 ls s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ 
+
+-- clear
+-- aws --profile nyc s3 rm --recursive s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ 
 
 
 SET year = (SELECT LEFT(CURRENT_DATE(), 4));

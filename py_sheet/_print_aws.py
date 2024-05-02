@@ -45,7 +45,7 @@ with open(f"{path}output\\upload_list.json") as input_file:
              }
 
 
-        content = f"{content}aws --profile nyc s3 ls s3://{s3_bucket}/{s3_prefix}{interval}/{f_name}\n"
+        content = f"{content}aws --profile scop s3 ls s3://{s3_bucket}/{s3_prefix}{interval}/{f_name}\n"
 
 
 f = open(f"{path}output\\aws.txt", "w")

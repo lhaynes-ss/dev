@@ -2,7 +2,7 @@
 ===================================
 Upload Paramount+ and Pluto files
 to AWS 
-$ aws --profile nyc s3 ls s3://samsung.ads.data.share/analytics/custom/vaughn/test/python/weekly/
+$ aws --profile scop s3 ls s3://samsung.ads.data.share/analytics/custom/vaughn/test/python/weekly/
 ===================================
 '''
 # dependencies
@@ -29,7 +29,7 @@ with open(f"{path}output\\upload_list.json") as input_file:
 
     # get s3 connection
     print("Connecting to s3...")
-    session = boto3.Session(profile_name='nyc')
+    session = boto3.Session(profile_name='scop')
     s3 = session.client('s3')
     print("Connected!\n")
 

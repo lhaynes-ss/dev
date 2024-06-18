@@ -50,6 +50,7 @@ def extract_file(file_path_in, file_path_out):
     df_dict         = {} # timesheet hours
     ws_timesheet    = wb['Tasks'] # worksheet (timesheet)
     ws_user         = wb['Settings'] # worksheet (user details)
+    ws_admin        = wb['Admin'] # worksheet (admin details)
     timesheet_data  = pd.DataFrame()
     user_data       = pd.DataFrame()
     selected_user   = pd.DataFrame()
@@ -59,6 +60,7 @@ def extract_file(file_path_in, file_path_out):
     # tables that contain the data that we are interested in
     timesheet_table_list = ['log']
     user_table_list = ['staff', 'member', 'department']
+    admin_table_list = ['groups']
 
 
     # get the table coordinates from the worksheet table dictionary
@@ -74,9 +76,27 @@ def extract_file(file_path_in, file_path_out):
             df_dict[tblname] = convert_coordinates_to_dataframe(tblcoord, ws_user)  # Convert to dataframe
 
 
+    for tblname, tblcoord in ws_admin.tables.items():
+        if tblname in admin_table_list:
+            # print(f"Table Name: {tblname}, Coordinate: {tblcoord}\n")
+            df_dict[tblname] = convert_coordinates_to_dataframe(tblcoord, ws_admin)  # Convert to dataframe
+
+
     # add spacer in output
     # print("\n")
 
+
+    # get task data (Sales Cycle) from groups
+    groups = df_dict['groups']
+    groups.drop(columns=['Category', 'Task'], axis = 1, inplace = True)
+    
+    # get time data
+    td = df_dict['log']
+    td['id'] = 1
+
+    # merge timesheet log with group data
+    timesheet_data = pd.concat([td, groups], axis=1)
+    
 
     # get user name
     selected_user = df_dict['member']
@@ -85,10 +105,6 @@ def extract_file(file_path_in, file_path_out):
     # get department
     department = df_dict['department']
     department['id'] = 1
-
-    # get time data
-    timesheet_data = df_dict['log']
-    timesheet_data['id'] = 1
 
     # get user details
     user_data = df_dict['staff']

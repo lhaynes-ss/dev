@@ -1,14 +1,14 @@
 -- https://adgear.atlassian.net/browse/SAI-6350
 
 -- upload
--- navigate to my project: cd Desktop/py_edit/
--- aws --profile nyc s3 cp output/ s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ --recursive 
+-- navigate to my project: cd ~/Desktop/important/py_edit/
+-- aws --profile scop s3 cp output/ s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ --recursive 
 
 -- check
--- aws --profile nyc s3 ls s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ 
+-- aws --profile scop s3 ls s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ 
 
 -- clear
--- aws --profile nyc s3 rm --recursive s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ 
+-- aws --profile scop s3 rm --recursive s3://samsung.ads.data.share/analytics/custom/vaughn/test/foo/output/ 
 
 
 SET year = (SELECT LEFT(CURRENT_DATE(), 4));
@@ -47,11 +47,7 @@ CREATE TEMP TABLE org_time_tracking_temp AS (
             ,TRIM(select_department) AS department
             ,TRIM(category) AS category
             ,TRIM(task) AS task
-            ,CAST(date_15_apr AS FLOAT) * 60 AS minutes_15_apr
-            ,CAST(date_16_apr AS FLOAT) * 60 AS minutes_16_apr
-            ,CAST(date_17_apr AS FLOAT) * 60 AS minutes_17_apr
-            ,CAST(date_18_apr AS FLOAT) * 60 AS minutes_18_apr
-            ,CAST(date_19_apr AS FLOAT) * 60 AS minutes_19_apr
+            ,TRIM(sales_cycle) AS sales_cycle
             ,CAST(date_22_apr AS FLOAT) * 60 AS minutes_22_apr
             ,CAST(date_23_apr AS FLOAT) * 60 AS minutes_23_apr
             ,CAST(date_24_apr AS FLOAT) * 60 AS minutes_24_apr
@@ -72,6 +68,11 @@ CREATE TEMP TABLE org_time_tracking_temp AS (
             ,CAST(date_15_may AS FLOAT) * 60 AS minutes_15_may
             ,CAST(date_16_may AS FLOAT) * 60 AS minutes_16_may
             ,CAST(date_17_may AS FLOAT) * 60 AS minutes_17_may
+            ,CAST(date_20_may AS FLOAT) * 60 AS minutes_20_may
+            ,CAST(date_21_may AS FLOAT) * 60 AS minutes_21_may
+            ,CAST(date_22_may AS FLOAT) * 60 AS minutes_22_may
+            ,CAST(date_23_may AS FLOAT) * 60 AS minutes_23_may
+            ,CAST(date_24_may AS FLOAT) * 60 AS minutes_24_may
         FROM udw_prod.udw_clientsolutions_cs.org_time_tracking_raw
         WHERE 
             CAST(total AS FLOAT) > 0
@@ -83,7 +84,7 @@ CREATE TEMP TABLE org_time_tracking_temp AS (
             *
         FROM cte
             UNPIVOT(
-                minutes_active FOR log_date IN (minutes_15_apr, minutes_16_apr, minutes_17_apr, minutes_18_apr, minutes_19_apr, minutes_22_apr, minutes_23_apr, minutes_24_apr, minutes_25_apr, minutes_26_apr, minutes_29_apr, minutes_30_apr, minutes_1_may, minutes_2_may, minutes_3_may, minutes_6_may, minutes_7_may, minutes_8_may, minutes_9_may, minutes_10_may, minutes_13_may, minutes_14_may, minutes_15_may, minutes_16_may, minutes_17_may)
+                minutes_active FOR log_date IN (minutes_22_apr, minutes_23_apr, minutes_24_apr, minutes_25_apr, minutes_26_apr, minutes_29_apr, minutes_30_apr, minutes_1_may, minutes_2_may, minutes_3_may, minutes_6_may, minutes_7_may, minutes_8_may, minutes_9_may, minutes_10_may, minutes_13_may, minutes_14_may, minutes_15_may, minutes_16_may, minutes_17_may, minutes_20_may, minutes_21_may, minutes_22_may, minutes_23_may, minutes_24_may)
             )
     )
 
@@ -113,6 +114,7 @@ CREATE TEMP TABLE org_time_tracking_temp AS (
         ,p.department
         ,p.category
         ,p.task
+        ,p.sales_cycle
         ,d.log_date_to_date AS log_date
         ,p.minutes_active
     FROM pivot_cte p 
@@ -123,9 +125,27 @@ CREATE TEMP TABLE org_time_tracking_temp AS (
 );
 
 
+
+-- STEP 2.5. ADD SUPPLEMENTARY DATA
+SET start_date = (SELECT MIN(log_date) FROM org_time_tracking_temp);
+
+DROP TABLE IF EXISTS temp_week_mapping;
+CREATE TEMP TABLE temp_week_mapping AS (
+    SELECT DISTINCT 
+        log_date
+        ,FLOOR(DATEDIFF(DAY, $start_date, log_date) / 7) + 1 AS week_num
+    FROM org_time_tracking_temp
+);
+
+
 -- STEP 3. LOAD DATA INTO FINAL TABLE
 CREATE OR REPLACE TABLE udw_prod.udw_clientsolutions_cs.org_time_tracking AS 
-SELECT * FROM org_time_tracking_temp;
+SELECT 
+    t.*
+    ,w.week_num
+FROM org_time_tracking_temp t
+    LEFT JOIN temp_week_mapping w USING(log_date)
+;
 
 
 -- preview data

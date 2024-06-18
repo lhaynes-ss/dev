@@ -1,0 +1,376 @@
+Department ,Sales Cycle ,Category,Change Category To,Task
+Sales,n/a,Career Development,,Personal Development Training
+Sales,n/a,Career Development,,HR Related Tasks: Hiring  Interviewing  Reviews  etc
+Sales,n/a,Career Development,,New Hire Onboarding
+Sales,n/a,Career Development,,Knowledge Sharing (Preparing/Presenting)
+Sales,n/a,Business Development,Career Development,Training Peers (Preparing/Presenting)
+Sales,n/a,Business Development,Account Strategy,Management: Org. & Strategy
+Sales,Pre Sales ,Business Development,Account Strategy,Business Development & Strategy
+Sales,Pre Sales ,Client Communication and Meetings,,Pre-Sales Client Communication
+Sales,Post Sales ,Client Communication and Meetings,,Post-Sales Client Communication
+Sales,Pre and Post Sales,Client Communication and Meetings,,Client Meeting - In Person Entertaining
+Sales,Pre and Post Sales,Client Communication and Meetings,,Travel Time
+Sales,n/a,Internal Housekeeping,,PUMI
+Sales,n/a,Internal Housekeeping,,General Admin (managing inbox  calendars  etc.)
+Sales,n/a,Internal Housekeeping,,Expense Reports
+Sales,n/a,Internal Housekeeping,,VOS
+Sales,n/a,Internal Meetings,,Internal Non-Sales Meetings
+Sales,n/a,Internal Meetings,,Internal Team Meetings and 1:1s
+Sales,n/a,PTO,,PTO
+Sales,Post Sales ,Salesforce Management,,Financial Reporting
+Sales,Pre and Post Sales,Salesforce Management,,Log Activity in Salesforce
+Sales,Pre and Post Sales,Salesforce Management,,Biz Ops Cases
+Sales,Pre and Post Sales,Salesforce Management,,Legal Review
+Sales,Pre Sales ,Incubation (SMB),Account Strategy,Foundational Initiatives
+Sales,Pre Sales ,Incubation (SMB),Account Strategy,Solutions Development
+Sales,Pre Sales ,Incubation (SMB),Account Strategy,Voice of the Customer Sourcing and Converting to Insights
+Sales,Pre Sales ,Incubation (SMB),Account Strategy,Business Development & Strategy
+Sales,Post Sales ,Campaign Management,,Direct IO Troubleshooting
+Sales,Post Sales ,Campaign Management,,Upselling (Mid Campaign Tasks)
+Sales,Post Sales ,Programmatic,,Programmatic Spend Tracking
+Sales,Post Sales ,Programmatic,,Programmatic Troubleshooting
+Sales,Post Sales ,Programmatic,,Programmatic Reports
+Sales,Post Sales ,Programmatic,,Programmatic Revenue Actualization
+Sales,Post Sales ,Reporting,,Wrap Reports/QBRs (Review & Feedback)
+Sales,Post Sales ,DSP Platform Support,Campaign Management,Partner Program Campaign Optimization & Post-sales Support
+Sales,Pre and Post Sales,Reporting,,Audience Reports (Lift  R&F  IR  Linear Ads  Optimal Reach)
+Sales,Pre and Post Sales,Reporting,,Audience Insights
+Sales,Pre Sales ,Account Strategy,,Client Meeting Prep
+Sales,Pre Sales ,Account Strategy,,Finance Approvals
+Sales,Pre Sales ,Account Strategy,,RFI
+Sales,Pre Sales ,Account Strategy,,Pitch Deck/Proposals
+Sales,Pre Sales ,Account Strategy,,Prospecting
+Sales,Pre Sales ,Account Strategy,,Account Planning
+Sales,Pre Sales ,Account Strategy,,Compiling Information for Clients
+Sales,Pre Sales ,Account Strategy,,Client Meeting Prep
+Sales,Pre Sales ,Audience Creation/Management,Campaign Management,Audience Creation
+Sales,Pre Sales ,Audience Creation/Management,Campaign Management,Inventory Case
+Sales,Pre Sales ,Campaign Management,,Client Kick off Call
+Sales,Pre Sales ,Campaign Management,,O1 Entry & Revisions
+Sales,Pre Sales ,Campaign Management,,Roadblock/ATO (Booking / DOMO / Conflicts)
+Sales,Pre Sales ,Client Communication and Meetings,,Client Meeting - Virtual (Presenting)
+Sales,Pre Sales ,Client Communication and Meetings,,Client Meeting - In Person (Presenting)
+Sales,Pre Sales ,Internal Meetings,,RFP Brainstorm
+Sales,Pre Sales ,Programmatic,,Programmatic Deal Request
+Sales,Pre Sales ,Programmatic,,Creating Blocklists
+Sales,Pre Sales ,Salesforce Management,,Salesforce Opportunity (Creation & Management)
+Sales,Pre and Post Sales,DSP Platform Support,Campaign Management,Partner Program Campaign Set-Up Support
+Agency Development ,Pre and Post Sales,Agency Strategy,,Client Meeting Prep
+Agency Development ,Pre and Post Sales,Agency Strategy,,Agency Planning & Strategy
+Agency Development ,Pre Sales ,Agency Strategy,,RFI's
+Agency Development ,Pre and Post Sales,Agency Strategy,,Deck Creation
+Agency Development ,Pre Sales ,Agency Strategy,,Prospecting and Outreach
+Agency Development ,Pre and Post Sales,Agency Strategy,,Work on specific Agency Product E.g. Lift  Outcomes  etc.
+Agency Development ,Pre and Post Sales,Agency Strategy,,Operational work to support agency  products  etc. (E.g. workflows  processes  etc.
+Agency Development ,Pre and Post Sales,Agency Strategy,,Deliverables / Follow Ups to Meetings
+Agency Development ,n/a,Agency Strategy,,Confluence pages to support deals
+Agency Development ,Pre and Post Sales,Agency Strategy,Sales Team Partnership,Fire Drill / Escalation Support
+Agency Development ,Pre Sales ,Agency Strategy,,DMP  clean room and/or planning/optimization tools
+Agency Development ,Pre Sales ,Ideation / Brainstorming,Agency Strategy,New products  solutions  etc.
+Agency Development ,Pre Sales ,Events/Activations,,Event outreach and meeting set up E.g. Cannes  CES  NewFront
+Agency Development ,Pre Sales ,Events/Activations,,Event meeting prep  decks  etc.
+Agency Development ,Pre Sales ,Partnership Negotiations,,Documents to support upfront or CY deals  negotiations  etc.
+Agency Development ,Pre Sales ,Partnership Negotiations,,Bottoms Up Planning
+Agency Development ,Pre Sales ,Partnership Negotiations,,Negotiation with Agency
+Agency Development ,Pre Sales ,Partnership Negotiations,,Negotiation with FinOps  internal stakeholders
+Agency Development ,Post Sales ,Partnership Negotiations,,Financial pulls  modeling  etc.
+Agency Development ,Pre and Post Sales,Partnership Negotiations,,Partnership Strategy
+Agency Development ,Pre and Post Sales,Sales Team Partnership,,Account Planning & Strategy E.g. Account / Vertical specific
+Agency Development ,Pre and Post Sales,Sales Team Partnership,,Fire Drill / Escalation Support
+Agency Development ,n/a,Sales Team Partnership,,Responding to sales/CSM questions/one offs E.g. Slacks  rate card questions  etc.
+Agency Development ,Pre and Post Sales,Client Meetings,,Client Meeting - In Person Entertaining
+Agency Development ,Pre and Post Sales,Client Meetings,,Travel Time
+Agency Development ,Pre and Post Sales,Client Meetings,,Client Meeting - Virtual
+Agency Development ,Pre and Post Sales,Client Meetings,,Client Meeting - In Person
+Agency Development ,Pre and Post Sales,Client Meetings,,Client Meeting with Sales Team (account specific)
+Agency Development ,n/a,Internal Housekeeping,Internal Housekeeping/ Salesforce Management ,PUMI
+Agency Development ,n/a,Internal Housekeeping,Internal Housekeeping/ Salesforce Management ,Expense Reports
+Agency Development ,n/a,Internal Housekeeping,Internal Housekeeping/ Salesforce Management ,VOS
+Agency Development ,n/a,Internal Meetings,,Team Meeting
+Agency Development ,n/a,Internal Meetings,,Internal Meetings with sales team
+Agency Development ,n/a,Internal Meetings,,Internal Meetings 1:1s
+Agency Development ,n/a,Internal Meetings,,Internal Meetings with cross functional teams E.g. A&I  FinOps  NPS
+Agency Development ,n/a,Internal Meetings,,Supporting other Agency Dev Team Members
+Agency Development ,Pre Sales ,Programmatic,,Programmatic Deal Request
+Agency Development ,Pre and Post Sales,Programmatic,,Paperwork E.g. P2P
+Agency Development ,Post Sales ,Programmatic,,Programmatic Spend Tracking
+Agency Development ,Pre and Post Sales,Programmatic,,Programmatic Troubleshooting
+Agency Development ,Post Sales ,Programmatic,,Programmatic Reports
+Agency Development ,Pre and Post Sales,Programmatic,,Programmatic Marketplaces
+Agency Development ,n/a,PTO,,PTO
+Agency Development ,Post Sales ,Reporting,,QBRs
+Agency Development ,Pre and Post Sales,Reporting,,Partnership Pacing Documents  Financial Reporting/Tracking
+Agency Development ,Pre Sales ,Salesforce Management,Internal Housekeeping/ Salesforce Management ,Salesforce Opportunity (Creation & Management)
+Agency Development ,n/a,Salesforce Management,Internal Housekeeping/ Salesforce Management ,Log Activity in Salesforce
+Agency Development ,n/a,Salesforce Management,Internal Housekeeping/ Salesforce Management ,Biz Ops Cases
+Agency Development ,Post Sales ,Salesforce Management,Internal Housekeeping/ Salesforce Management ,Contracts  Paper & Legal Review
+P/CSM,n/a,Career Development,,Personal Development Training
+P/CSM,n/a,Career Development,,SME (Internal meetings & Work)
+P/CSM,n/a,Career Development,,Hiring & Interviewing
+P/CSM,n/a,Career Development,,New Hire Onboarding
+P/CSM,n/a,Career Development,,Knowledge Sharing (Preparing/Presenting)
+P/CSM,n/a,Career Development,,Training Peers (Preparing/Presenting)
+P/CSM,n/a,Career Development,,Management: Org. & Strategy
+P/CSM,Pre and Post Sales,Client Communication,,Client Emails
+P/CSM,Pre and Post Sales ,External Meetings,,Client Meeting Prep
+P/CSM,Pre and Post Sales ,External Meetings,,Travel Time
+P/CSM,Pre and Post Sales ,External Meetings,,Client Meeting - In Person Entertaining
+P/CSM,Pre and Post Sales ,External Meetings,,Client Meeting - Virtual (Presenting)
+P/CSM,Pre and Post Sales ,External Meetings,,Client Meeting - In Person (Presenting)
+P/CSM,Pre and Post Sales,External Meetings,,Office Hours
+P/CSM,n/a,Internal Housekeeping,,PUMI
+P/CSM,n/a,Internal Housekeeping,,Expense Reports
+P/CSM,n/a,Internal Housekeeping,,VOS
+P/CSM,Pre Sales ,Internal Meetings,,RFP Brainstorm
+P/CSM,n/a,Internal Meetings,,Internal Meetings
+P/CSM,n/a,Internal Meetings,,1:1 Meetings
+P/CSM,n/a,Internal Meetings,,Product/Beta Meetings
+P/CSM,n/a,PTO,,PTO
+P/CSM,Pre and Post Sales ,Reporting,,Audience Reports (Lift  R&F  IR  Linear Ads  Optimal Reach)
+P/CSM,Pre and Post Sales ,Reporting,,Custom Analytics Reports
+P/CSM,Pre and Post Sales ,Reporting,,Audience Insights Reporting
+P/CSM,Post Sales ,Campaign Management,,Screenshots
+P/CSM,Post Sales ,Campaign Management,,Optimizations
+P/CSM,Post Sales ,Campaign Management,,Troubleshooting
+P/CSM,Post Sales ,Campaign Management,,Upselling
+P/CSM,Post Sales ,Campaign Management,,Incident Cases
+P/CSM,Post Sales ,Campaign Management,,Native Creative Upload
+P/CSM,Post Sales ,Campaign Management,,Native Deal Creation
+P/CSM,Post Sales ,Reporting,,Case Studies
+P/CSM,Post Sales ,Reporting,,Wrap Reports (Emails  Decks  One-Sheets)
+P/CSM,Post Sales ,Reporting,,QBRs
+P/CSM,Post Sales ,Reporting,,Pacing Reports
+P/CSM,Post Sales ,Troubleshooting,Campaign Management,Campaign/Creative/Deals
+P/CSM,Post Sales ,Troubleshooting,Campaign Management,Supply Deals
+P/CSM,Post Sales ,Troubleshooting,Campaign Management,Pacing
+P/CSM,Post Sales ,Troubleshooting,Campaign Management,P&E Support Ticket
+P/CSM,Post Sales ,Troubleshooting,Campaign Management,Ad Ops Support Ticket
+P/CSM,Post Sales ,Troubleshooting,Campaign Management,SSTSC Ticket
+P/CSM,Pre Sales ,Audience Creation/Management,RFP Planning ,Audience Creation
+P/CSM,Pre Sales ,Audience Creation/Management,RFP Planning ,Inventory Case
+P/CSM,Pre Sales ,Audience Creation/Management,RFP Planning ,Audience Revision
+P/CSM,Pre Sales ,Audience Creation/Management,RFP Planning ,Inventory Case Revision
+P/CSM,Pre Sales ,Campaign Launch,Campaign Management,JIRA Alfred KOC
+P/CSM,Pre Sales ,Campaign Launch,Campaign Management,Creative Asset Collection
+P/CSM,Pre Sales ,Campaign Launch,Campaign Management,Client Kick off Email
+P/CSM,Pre Sales ,Campaign Launch,Campaign Management,O1 Media Plan Revisions
+P/CSM,Pre Sales ,Campaign Launch,Campaign Management,Fingerprinting
+P/CSM,Pre Sales ,Campaign Launch,Campaign Management,Website Pixel (Conversion Groups & Rev Tracking)
+P/CSM,Pre Sales ,Campaign Launch,Campaign Management,3rd Party Study: Internal/External set up
+P/CSM,Pre Sales ,Campaign Launch,Campaign Management,Campaign Setup
+P/CSM,Pre Sales ,Media Planning,RFP Planning ,Roadblock/ATO (Booking /DOMO/Conflicts)
+P/CSM,Pre Sales ,Media Planning,RFP Planning ,Media Plan Creation & Revisions
+P/CSM,Pre Sales ,Media Planning,RFP Planning ,O1 Entry & Approvals
+P/CSM,Pre Sales ,Media Planning,RFP Planning ,Pre-launch (audience creation  media plan & specs)
+P/CSM,Pre Sales ,Onboarding,Campaign Launch,Demos
+P/CSM,Pre Sales ,Programmatic,,Programmatic Deal Request
+P/CSM,Post Sales ,Programmatic,,Programmatic Monitoring Spend
+P/CSM,Pre and Post Sales,Programmatic,,Programmatic Troubleshooting
+P/CSM,Post Sales ,Programmatic,,Programmatic Reports
+P/CSM,Pre Sales ,Programmatic,,Audience Creation (DMP Push  Forecast)
+Data & Insights,Pre Sales ,Audience Creation,Data Solutions,Custom Audience creation
+Data & Insights,Pre Sales ,Audience Creation,Data Solutions,Treatment & control design and creation
+Data & Insights,n/a,BI Tooling,Data Insights,Create/Maintain / troubleshoot Dashboards
+Data & Insights,n/a,Career Development,,Training and personal development
+Data & Insights,n/a,Client and Stakeholder Education,,3P Measurement / Pixel and Measurement Inquiries
+Data & Insights,n/a,Client and Stakeholder Education,,Documentation for stakeholders  SME Projects  Methodology
+Data & Insights,n/a,Client and Stakeholder Education,,Office Hours/Knowledge Sharing / Training Peers (Preparing/Presenting)
+Data & Insights,Pre Sales ,Client and Stakeholder Education,,RFP inputs  Ask Analytics  Client / Stakeholder research
+Data & Insights,n/a,Client and Stakeholder Education,,Sales Vertical Meetings
+Data & Insights,n/a,Client and Stakeholder Education,,SME (Internal meetings & Work)
+Data & Insights,Pre and Post Sales,Client Meetings,,Client meetings -  insights and deck creation / presentations / follow-up - non QBR
+Data & Insights,Pre and Post Sales,Data Insights,,Data insights for proof points  benchmarks  marketing  upselling  new offerings 
+Data & Insights,Pre Sales ,Data Solutions,,Create NEW Data Solutions e.g. in-app ACR
+Data & Insights,Pre Sales ,Data Solutions,,Research & Development - NEW capability or solutions
+Data & Insights,n/a,Internal Housekeeping,,Concur / GTNE File Expenses
+Data & Insights,n/a,Internal Housekeeping,,GTNE Book Travel
+Data & Insights,n/a,Internal Housekeeping,,IT helpdesk issues
+Data & Insights,n/a,Internal Housekeeping,,PUMIs and Approvals
+Data & Insights,n/a,Internal Meetings,,Client Advisory/Collaboration with Sales  CSMs
+Data & Insights,n/a,Internal Meetings,,Product & Engineering Meetings / Product Launch Meetings - NPS Live
+Data & Insights,n/a,Internal Meetings,,Recurring 1:1 employee meetings; CSDI meetings
+Data & Insights,n/a,NPS,Data Solutions,Data and query collaboration / help discussions
+Data & Insights,Pre Sales ,NPS,Data Solutions,NPS collaboration - New Solutions
+Data & Insights,n/a,PTO,,PTO
+Data & Insights,Post Sales ,QBR - Client Meeting,QBR,QBR Client presentations - prep and follow-up
+Data & Insights,Post Sales ,QBR - Reporting,QBR,Business Reviews analysis  insights and deck development  Internal reviews
+Data & Insights,n/a,Recruitment & Onboarding,Internal Housekeeping,New Hire onboarding and Training
+Data & Insights,n/a,Recruitment & Onboarding,Internal Housekeeping,Recruitment & Interviewing
+Data & Insights,Post Sales ,Reporting,,3P measurement reporting
+Data & Insights,Pre Sales ,Reporting,,3P measurement set-up
+Data & Insights,Pre and Post Sales,Reporting,,App Retention & Engagement
+Data & Insights,Pre and Post Sales,Reporting,,Audience Advisor and custom audience insights
+Data & Insights,Pre and Post Sales,Reporting,,Bespoke/one-off custom analytics including client campaign reporting
+Data & Insights,Pre Sales ,Reporting,,Campaign measurement design
+Data & Insights,Post Sales ,Reporting,,DSP post-campaign insights
+Data & Insights,Pre Sales ,Reporting,,DSP pre-campaign insights
+Data & Insights,Pre and Post Sales,Reporting,,Efficiency playbook
+Data & Insights,Pre and Post Sales,Reporting,,Linear SOV
+Data & Insights,Pre and Post Sales,Reporting,,Reach Advisor
+Data & Insights,Pre and Post Sales,Reporting,,Running and updating recurring client campaign reporting
+Data & Insights,n/a,UDW CDW,,UDW / CDW inquiries and access; troubleshooting
+Data & Insights,n/a,Vendor Meetings,Client Meetings,3P Partner - methodology  product overview
+Sales Ops,Pre and Post Sales,Adminstration,,Email review/chatter
+Sales Ops,Pre and Post Sales,Adminstration,,Sales Escalations / Case Inquiries
+Sales Ops,Pre and Post Sales,Adminstration,,NASB BizAffairs Support
+Sales Ops,Pre and Post Sales,Adminstration,,Slacking with Sales/CSMs
+Sales Ops,n/a,Career Development,,Knowledge Sharing
+Sales Ops,n/a,Career Development,,Mandatory Trainings
+Sales Ops,n/a,Career Development,,MBO Alignment
+Sales Ops,n/a,Career Development,Internal Meetings,One on One meeting
+Sales Ops,n/a,Career Development,,Trainings
+Sales Ops,Pre Sales ,Contract Processing,,Legal Review and follow up
+Sales Ops,Pre Sales ,Contract Processing,,Review Contracts
+Sales Ops,Pre Sales ,Contract Processing,,Sending for signature via Docusign
+Sales Ops,Pre Sales ,Contract Processing,,Submitting to ECMS
+Sales Ops,Pre and Post Sales,External Meetings,,Clients / Agencies
+Sales Ops,Pre and Post Sales,External Meetings,,Vendors
+Sales Ops,n/a,Internal Meetings,,Bi-Weekly Sales Ops Meeting
+Sales Ops,n/a,Internal Meetings,,Cross Team Collaboration Meeting
+Sales Ops,n/a,Internal Meetings,,Daily Stand Up / Team Meeting
+Sales Ops,n/a,Internal Meetings,,One on One meeting
+Sales Ops,n/a,Internal Meetings,,Town Hall/Sales +/ NPS Live etc 
+Sales Ops,n/a,Internal Meetings,,Licenses  Cost Allocation and Security related
+Sales Ops,n/a,Internal Meetings,,Bi-Weekly Sales Ops Meeting
+Sales Ops,n/a,Internal Meetings,,Stakeholder Meetings (Projects)
+Sales Ops,Pre Sales ,IO Processing,,Checking IO media plan
+Sales Ops,Pre Sales ,IO Processing,,Checking IO terms & policies
+Sales Ops,Pre Sales ,IO Processing,,Engaging with Legal re negotiations
+Sales Ops,Pre Sales ,IO Processing,,Engaging with other teams for approval
+Sales Ops,Pre Sales ,IO Processing,,RB bookings/Coordinating with other teams
+Sales Ops,n/a,Project Activity,,Manage Jira Project details
+Sales Ops,n/a,Project Activity,,Manage Roadmap and Comms
+Sales Ops,n/a,Project Activity,,Project design and collaboration
+Sales Ops,n/a,Project Activity,,Project development and configuration
+Sales Ops,n/a,Project Activity,,Project documentation and training
+Sales Ops,n/a,Project Activity,,Project launch and comms
+Sales Ops,n/a,Project Activity,,Solution Architecture
+Sales Ops,n/a,Project Activity,,Solution Build
+Sales Ops,n/a,Project Activity,,Solution Rollout ( Prod Migration  Documentation  Communication Etc.)
+Sales Ops,n/a,Project Activity,,Solution Test
+Sales Ops,n/a,PTO,,PTO
+Sales Ops,n/a,Support Activity,,Ad-hoc Support questions and solve issues - Slack  Email  Phone Call etc.
+Sales Ops,n/a,Support Activity,,Ads.txt updates
+Sales Ops,n/a,Support Activity,,Bulk Updates and Other Data Import activities
+Sales Ops,n/a,Support Activity,,Creative Review
+Sales Ops,n/a,Support Activity,,Data Governance & Data Quality Checks
+Sales Ops,n/a,Support Activity,,Due Diligence Review
+Sales Ops,n/a,Support Activity,,Inquiry Responses
+Sales Ops,n/a,Support Activity,,Integration & System Health Check
+Sales Ops,n/a,Support Activity,,Legal Compliance and Governance
+Sales Ops,n/a,Support Activity,,LMS content building
+Sales Ops,n/a,Support Activity,,New product to market support
+Sales Ops,n/a,Support Activity,,P&E Product and New Product Release
+Sales Ops,n/a,Support Activity,,Policy Exception Request
+Sales Ops,n/a,Support Activity,,Sales Incident Report
+Sales Ops,n/a,Support Activity,,Support for new Sales Strategies
+Sales Ops,n/a,Support Activity,,System Integrations
+Sales Ops,n/a,Support Activity,,System Support
+Sales Ops,n/a,Support Activity,,Update Rate Cards
+Sales Ops,n/a,Support Activity,,User Administration and up keep
+Sales Ops,n/a,Support Activity,,Vacation backup
+Sales Ops,n/a,Support Activity,,Vendor Certification
+Sales Ops,n/a,Team Management,Internal Meetings,Daily Standup & General guidance
+Sales Ops,n/a,Team Management,Internal Meetings,Jira Review
+Sales Ops,n/a,Team Management,Internal Meetings,Review Monthly Release Items
+Sales Ops,n/a,General,,Focused Work Time
+MSA Sales ,n/a,Career Development,,Personal Development Training
+MSA Sales ,n/a,Career Development,,Hiring & Interviewing
+MSA Sales ,n/a,Career Development,,New Hire Onboarding
+MSA Sales ,n/a,Career Development,,Knowledge Sharing (Preparing/Presenting)
+MSA Sales ,n/a,Career Development,,Training Peers (Preparing/Presenting)
+MSA Sales ,n/a,Career Development,,Management: Org. & Strategy
+MSA Sales ,n/a,Client Communication,,Client Emails
+MSA Sales ,Pre and Post Sales,External Meetings,,Client Meeting - In Person Entertaining
+MSA Sales ,Pre and Post Sales,External Meetings,,Travel Time
+MSA Sales ,n/a,Internal Housekeeping,,PUMI
+MSA Sales ,n/a,Internal Housekeeping,,GTNE Travel
+MSA Sales ,n/a,Internal Housekeeping,,Expense Reports
+MSA Sales ,n/a,Internal Housekeeping,,VOS
+MSA Sales ,Pre Sales ,Internal Meetings,,RFP Brainstorm
+MSA Sales ,n/a,Internal Meetings,,Internal Meetings
+MSA Sales ,n/a,Internal Meetings,,Internal Meetings 1:1s
+MSA Sales ,n/a,PTO,,PTO
+MSA Sales ,Pre and Post Sales,Reporting,,Audience Reports (Lift  R&F  IR  Linear Ads  Optimal Reach)
+MSA Sales ,Pre and Post Sales,Reporting,,Audience Insights
+MSA Sales ,n/a,Salesforce Management,,Financial Reporting
+MSA Sales ,Pre and Post Sales,Salesforce Management,,Log Activity in Salesforce
+MSA Sales ,Pre and Post Sales,Salesforce Management,,Biz Ops Cases
+MSA Sales ,Pre and Post Sales,Salesforce Management,,Legal Review
+MSA Sales ,Post Sales ,Campaign Management,,Upselling
+MSA Sales ,Post Sales ,External Meetings,,Client Meeting - Virtual (Presenting)
+MSA Sales ,Post Sales ,Reporting,,Wrap Reports/QBRs (Review & Feedback)
+MSA Sales ,Pre Sales ,Account Strategy,,Client Meeting Preparation/Recap
+MSA Sales ,Pre Sales ,Account Strategy,,Finance Approvals
+MSA Sales ,Pre Sales ,Account Strategy,,Account Planning
+MSA Sales ,Pre Sales ,Account Strategy,,RFI
+MSA Sales ,Pre Sales ,Account Strategy,,Pitch Deck
+MSA Sales ,Pre Sales ,Account Strategy,,Prospecting
+MSA Sales ,Pre Sales ,Account Strategy,,MSA Review
+MSA Sales ,Pre Sales ,Audience Creation/Management,Campaign Management,Audience Creation
+MSA Sales ,Pre Sales ,Audience Creation/Management,Campaign Management,Inventory Case
+MSA Sales ,Pre Sales ,Campaign Management,,Client Kick off Call
+MSA Sales ,Pre Sales ,External Meetings,,Client Meeting - In Person (Presenting)
+MSA Sales ,Pre Sales ,Salesforce Management,,Salesforce Opportunity (Creation & Management)
+MSA Sales ,Pre Sales ,Programmatic,,Programmatic Deal Request
+External Demand ,n/a,Career Development,,Personal Development Training
+External Demand ,n/a,Career Development,,HR Related Tasks: Hiring  Interviewing  Reviews  etc
+External Demand ,n/a,Career Development,,New Hire Onboarding
+External Demand ,n/a,Career Development,,Knowledge Sharing (Preparing/Presenting)
+External Demand ,n/a,Business Development,,Training Peers (Preparing/Presenting)
+External Demand ,n/a,Business Development,,Management: Org. & Strategy
+External Demand ,n/a,Business Development,,Business Development & Strategy
+External Demand ,Pre Sales ,Client Communication and Meetings,,Pre-Sales Client Communication
+External Demand ,Post Sales ,Client Communication and Meetings,,Post-Sales Client Communication
+External Demand ,Pre and Post Sales,Client Communication and Meetings,,Client Meeting - In Person Entertaining
+External Demand ,Pre and Post Sales,Client Communication and Meetings,,Travel Time
+External Demand ,n/a,Internal Housekeeping,,PUMI
+External Demand ,n/a,Internal Housekeeping,,General Admin (managing inbox  calendars  etc.)
+External Demand ,n/a,Internal Housekeeping,,Expense Reports
+External Demand ,n/a,Internal Housekeeping,,VOS
+External Demand ,n/a,Internal Meetings,,Internal Non-Sales Meetings
+External Demand ,n/a,Internal Meetings,,Internal Team Meetings and 1:1s
+External Demand ,n/a,PTO,,PTO
+External Demand ,n/a,Salesforce Management,,Financial Reporting
+External Demand ,Pre and Post Sales,Salesforce Management,,Log Activity in Salesforce
+External Demand ,Pre and Post Sales,Salesforce Management,,Biz Ops Cases
+External Demand ,Pre and Post Sales,Salesforce Management,,Legal Review
+External Demand ,Pre Sales ,Incubation (SMB),Business Development,Foundational Initiatives
+External Demand ,Pre Sales ,Incubation (SMB),Business Development,Solutions Development
+External Demand ,Pre Sales ,Incubation (SMB),Business Development,Voice of the Customer Sourcing and Converting to Insights
+External Demand ,Pre Sales ,Incubation (SMB),Business Development,Business Development & Strategy
+External Demand ,n/a,External Demand,,Finance Operations
+External Demand ,Pre Sales ,External Demand,,Contract Operations
+External Demand ,n/a,External Demand,,Cross Organization Projects
+External Demand ,Post Sales ,Campaign Management,,Direct IO Troubleshooting
+External Demand ,Post Sales ,Campaign Management,,Upselling (Mid Campaign Tasks)
+External Demand ,Post Sales ,Programmatic,,Programmatic Spend Tracking
+External Demand ,Post Sales ,Programmatic,,Programmatic Troubleshooting
+External Demand ,Post Sales ,Programmatic,,Programmatic Reports
+External Demand ,Post Sales ,Programmatic,,Programmatic Revenue Actualization
+External Demand ,Post Sales ,Reporting,,Wrap Reports/QBRs (Review & Feedback)
+External Demand ,Post Sales ,DSP Platform Support,Campaign Management,Partner Program Campaign Optimization & Post-sales Support
+External Demand ,Pre and Post Sales,Reporting,,Audience Reports (Lift  R&F  IR  Linear Ads  Optimal Reach)
+External Demand ,Pre and Post Sales,Reporting,,Audience Insights
+External Demand ,Pre and Post Sales,External Demand,,Technical Troubleshooting
+External Demand ,Pre Sales ,Account Strategy,,Client Meeting Prep
+External Demand ,Pre Sales ,Account Strategy,,Finance Approvals
+External Demand ,Pre Sales ,Account Strategy,,RFI
+External Demand ,Pre Sales ,Account Strategy,,Pitch Deck/Proposals
+External Demand ,Pre Sales ,Account Strategy,,Prospecting
+External Demand ,Pre Sales ,Account Strategy,,Account Planning
+External Demand ,Pre Sales ,Account Strategy,,Compiling Information for Clients
+External Demand ,Pre Sales ,Account Strategy,,Client Meeting Prep
+External Demand ,Pre Sales ,Audience Creation/Management,Campaign Management,Audience Creation
+External Demand ,Pre Sales ,Audience Creation/Management,Campaign Management,Inventory Case
+External Demand ,Pre Sales ,Campaign Management,,Client Kick off Call
+External Demand ,Pre Sales ,Campaign Management,,O1 Entry & Revisions
+External Demand ,Pre Sales ,Campaign Management,,Roadblock/ATO (Booking / DOMO / Conflicts)
+External Demand ,Pre Sales ,Client Communication and Meetings,,Client Meeting - Virtual (Presenting)
+External Demand ,Pre Sales ,Client Communication and Meetings,,Client Meeting - In Person (Presenting)
+External Demand ,Pre Sales ,Internal Meetings,,RFP Brainstorm
+External Demand ,Pre Sales ,Programmatic,,Programmatic Deal Request
+External Demand ,Pre Sales ,Programmatic,,Creating Blocklists
+External Demand ,Pre Sales ,Salesforce Management,,Salesforce Opportunity (Creation & Management)
+External Demand ,Pre Sales ,DSP Platform Support,Campaign Management,Partner Program Campaign Set-Up Support
+External Demand ,Pre Sales ,External Demand,,Deal/Partnership Setup

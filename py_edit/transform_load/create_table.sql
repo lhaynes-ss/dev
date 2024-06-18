@@ -19,11 +19,6 @@ CREATE TEMP TABLE org_time_tracking_raw (
   ,select_department VARCHAR(556)
   ,category VARCHAR(556)
   ,task VARCHAR(556)
-  ,date_15_apr VARCHAR(556)
-  ,date_16_apr VARCHAR(556)
-  ,date_17_apr VARCHAR(556)
-  ,date_18_apr VARCHAR(556)
-  ,date_19_apr VARCHAR(556)
   ,date_22_apr VARCHAR(556)
   ,date_23_apr VARCHAR(556)
   ,date_24_apr VARCHAR(556)
@@ -44,7 +39,13 @@ CREATE TEMP TABLE org_time_tracking_raw (
   ,date_15_may VARCHAR(556)
   ,date_16_may VARCHAR(556)
   ,date_17_may VARCHAR(556)
+  ,date_20_may VARCHAR(556)
+  ,date_21_may VARCHAR(556)
+  ,date_22_may VARCHAR(556)
+  ,date_23_may VARCHAR(556)
+  ,date_24_may VARCHAR(556)
   ,total VARCHAR(556)
+  ,sales_cycle VARCHAR(556)
 );
 
 COPY INTO org_time_tracking_raw

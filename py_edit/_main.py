@@ -17,7 +17,7 @@ print('Starting batch process...')
 
 
 # set variables
-app_path    = r'C:\Users\l.haynes\Desktop\py_edit'
+app_path    = r'C:\Users\l.haynes\Desktop\important\py_edit'
 
 
 # try to get file list

@@ -25,10 +25,10 @@ TBD: Determine best way to identify sports content (ideally we'd look at sports 
  Ticket:
     https://adgear.atlassian.net/browse/SAI-6509
  
- Runtime: approx XX minutes
+ Runtime: approx 30 minutes
 
  Github:
-    ####
+    https://github.com/lhaynes-ss/dev/blob/main/max_in-app_new_users_SAI6509.sql
 
  References: 
     https://github.com/SamsungAdsAnalytics/QueryBase/blob/master/UDW/MnE/max_in-app_ad-tier_activity_SAI-5728.sql

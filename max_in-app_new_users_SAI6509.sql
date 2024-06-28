@@ -9,12 +9,16 @@ Methodology:
    - Lookback window = 18 months (18 nmonths ago - today).
    - First app open = The date at which the user has an app open but no prior app opens within the lookback window
    - Data: After users "First app open" we want to see their viewership of 6 minutes or more within 30 days of that date
+   - 6 minutes: Content time does not have to be continuous within the same app session. 
+      -- Spiderman meets threshold: In same app session Spiderman @3minutes, Game of Thrones @2 minutes, Spiderman @4minutes
+      -- Spiderman doesn't meets threshold: In app session A Spiderman @3minutes, Game of Thrones @2 minutes; In app session B Spiderman @4minutes
+      -- Adds and Games do not count
+   - Sports content: Determined by content genre (ideally we'd look at sports games specifically. Not documentaries, movies or talk shows surrounding sports.)
    - Audiences
       -- Audience 1: Watched 2 or more titles for a minimum of 6 mins within 30 days of first app open
       -- Audience 2: All watched content of 6 or more mins after first app open is sports related. No 30 day qualifier
 
-TBD: Determine best way to identify sports content (ideally we'd look at sports games specifically. Not documentaries, movies or talk shows surrounding sports.)
-
+Request:
  (Audience 1) 
     New Max Users (1st time app users) 
     AND Watched 1+ different titles (series, movies, sports, etc...) for 6+minutes within 30x days of first app opens
@@ -60,7 +64,7 @@ SET (
     ,DATEADD('month', -18, CURRENT_TIMESTAMP::DATE)   --> conversion_start_date
     ,'US'                                             --> country
     ,'3202301029760'                                  --> app_id: Max
-    ,(6 * 60)                                         --> watch_threshold_seconds (6 minutes)
+    ,(6 * 60)                                         --> watch_threshold_seconds (n minutes * 60 seconds) -- n = 6 minutes
 ); 
 
 
@@ -90,7 +94,7 @@ CREATE TEMP TABLE app_usage AS (
 		AND a.country = $country
 		AND a.app_id = $app_id
 		AND DATEDIFF('second', start_timestamp, end_timestamp) >= 60
-      -- AND vtifa = 993559708470207937 --> TESTING !!!!!!!!!!!!!!!
+      -- AND vtifa = 7306295289146700299 --> TESTING !!!!!!!!!!!!!!!
 	GROUP BY 
 		1, 2, 3, 4, 5
 );
@@ -220,7 +224,7 @@ CREATE TEMP TABLE audience_base AS (
       q.vtifa
       ,q.vpsid
       ,q.event_time  --> app session start =  event time
-      ,q.content_id  --> content session -> content id within app session
+      ,q.content_id  --> content session => content id within app session
       ,q.thirty_days_out
       ,SUM(q.acr_event_duration_seconds) AS content_event_duration_seconds
    FROM qualified_content_usage q
@@ -286,6 +290,7 @@ SELECT * FROM audience_1 LIMIT 1000;
 
 
 -- get genres to determine which are sports
+-- this is done by filtering out any genre that is typically not associated with sports
 DROP TABLE IF EXISTS sports_content_genres;
 CREATE TEMP TABLE sports_content_genres AS (
     SELECT DISTINCT 
@@ -378,8 +383,9 @@ CREATE TEMP TABLE sports_content_genres AS (
 
 
 
--- get titles to determine which are sports
+-- get titles to determine which are sports (this is via manual review)
 -- return ONLY the english title if available
+-- added sort column. Sort column adds underscore(s) (_) to en language to give sort priority
 DROP TABLE IF EXISTS sports_content_titles;
 CREATE TEMP TABLE sports_content_titles AS (
 
@@ -400,7 +406,6 @@ CREATE TEMP TABLE sports_content_titles AS (
          JOIN sports_content_genres g ON g.program_id = m.program_id
             AND m.partition_country = $country
             AND m.title_type = 'main'
-            -- AND CAST(m.udw_partition_datetime AS DATE) BETWEEN $conversion_start_date AND $conversion_end_date
             -- AND m.title LIKE ANY ('%NBA%', '%NFL%', '%MLB%', '%NHL%', '%PGA%')
    )
 
@@ -419,6 +424,7 @@ CREATE TEMP TABLE sports_content_titles AS (
 
 
 -- get qualifying sports usage
+-- base audience + matches in sports genre
 DROP TABLE IF EXISTS sports_content;
 CREATE TEMP TABLE sports_content AS (
    SELECT DISTINCT
@@ -445,6 +451,8 @@ CREATE TEMP TABLE sports_content AS (
 - has ONLY content sessions over 6 minutes that are related to sports
 - 6 minutes does not have to be consecutive, but has to be within the same session
 
+The number of total events in the base audience SHOULD match the number of events after 
+being joined with sports genre if all user content watched has been sports related
 *****************/ 
 DROP TABLE IF EXISTS audience_2;
 CREATE TEMP TABLE audience_2 AS (
@@ -481,8 +489,13 @@ SELECT COUNT(*) AS audience_2_count FROM audience_2;
 SELECT * FROM audience_2 LIMIT 1000;
 
 /**
-SELECT * FROM sports_content WHERE vtifa = 8225617600091657647;
-SELECT * FROM audience_base WHERE vtifa = 8225617600091657647;
+-- TEST
+SELECT * FROM sports_content WHERE vtifa = 7306295289146700299;
+SELECT * FROM audience_base WHERE vtifa = 7306295289146700299;
 **/
+
+
+-- SELECT below just added to not end on a comment as this throws an error in DbVis
+SELECT 'DONE';
 
 

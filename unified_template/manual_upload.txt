@@ -1,0 +1,22 @@
+
+
+# ----------------------
+# view 
+# ----------------------
+aws --profile scop s3 ls s3://prod-samsung-dm-data-share-paramount-plus/paramount-plus-us/weekly/
+aws --profile scop s3 ls s3://prod-samsung-dm-data-share-paramount-plus/paramount-plus-international/weekly/
+
+aws --profile scop s3 ls s3://prod-samsung-dm-data-share-pluto/pluto-us/weekly/
+aws --profile scop s3 ls s3://prod-samsung-dm-data-share-pluto/pluto-international/weekly/
+
+
+# ----------------------
+# upload
+# ----------------------
+aws --profile scop s3 cp unified/p_us/ s3://prod-samsung-dm-data-share-paramount-plus/paramount_plus_us/weekly/ --recursive
+aws --profile scop s3 cp unified/p_global/ s3://prod-samsung-dm-data-share-paramount-plus/paramount-plus-international/weekly/ --recursive
+
+aws --profile scop s3 cp unified/pluto_us/ s3://prod-samsung-dm-data-share-pluto/pluto-us/weekly/ --recursive
+aws --profile scop s3 cp unified/pluto_global/ s3://prod-samsung-dm-data-share-pluto/pluto-international/weekly/ --recursive
+
+
